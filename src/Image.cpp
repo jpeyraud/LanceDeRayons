@@ -83,6 +83,8 @@ void Image::ModeleLambert(Source source,Sphere sphere,Rayon rayon,int i,int j)
 
 	//calcul du Vi
 	PVect Vi=Ps-I;
+	if(i<300&&i>160&&j==414)
+		Vi.print();
 	Vi.normalize();
 
 	//calcul du teta
@@ -97,6 +99,7 @@ void Image::ModeleLambert(Source source,Sphere sphere,Rayon rayon,int i,int j)
 	Pix.x=(source.getPuissance().x*sphere.getColor().x)*teta;
 	Pix.y=(source.getPuissance().y*sphere.getColor().y)*teta;
 	Pix.z=(source.getPuissance().z*sphere.getColor().z)*teta;
+
 
 	this->setPixel(i,j,Pix);
 }

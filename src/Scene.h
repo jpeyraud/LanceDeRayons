@@ -10,6 +10,7 @@
 
 #include "vector.h"
 #include "Sphere.h"
+#include "Rayon.h"
 
 class Scene
 {
