@@ -14,7 +14,7 @@ int main()
 	float f=50.0;
 	int resX=640, resY=480;
 
-	Image* img = new Image(resX,resY);
+	Image* img = new Image(resX,resY,PVect(0.0,0.0,0.0));
 	float dx=sizeX/resX, dz=sizeY/resY;
 	PVect v,vR;
 	PVect p0 = PVect(-sizeX/2.0+dx/2.0,f,sizeY/2.0-dz);
@@ -42,8 +42,9 @@ int main()
 			if (r.m_hit)
 			{
 				//img->setPixel(i,j,s.getColor());
-				img->ModeleLambert(source,s,r,i,j);
-				//img->ModelePhong(source,s,PVect(1.0,1.0,1.0),512,r,i,j);
+				//img->ModeleLambert(source,s,r,i,j);
+				img->ModelePhong(source,s,PVect(1.0,1.0,1.0),512,r,i,j);
+				//img->imageMiroir(source,r,s,i,j);
 			}
 	    }
 	}

@@ -7,8 +7,10 @@ public:
 	//coordonnées
 	float x,y,z;
 
-	//constructeur
+	//constructeur d'une PVect
 	PVect(float x, float y, float z);
+
+	//constructeur vide
 	PVect();
 
 	//surcharge d'opérateurs
@@ -24,11 +26,19 @@ public:
 	void operator/=(float k);
 	void operator=(PVect const&P);
 
-	//méthodes utiles
+	//affichage d'une PVect
 	void print();
+
+	// norme du vecteur
 	float length();
+
+	//norme d'un vecteur au carré
 	float lengthpow();
+
+	//normalisation d'une vecteur
 	void normalize();
+
+	//vectorielle
 	PVect setVecteur(PVect const& P1, PVect const& P2);
 };
 

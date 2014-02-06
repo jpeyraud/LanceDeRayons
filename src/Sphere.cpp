@@ -10,12 +10,13 @@
 
 using namespace std;
 
-
+//constructeur vide...
 Sphere::Sphere()
 {
 
 }
 //------------------------------------------------------------------------
+//Constructeur d'une sphere avec c son centre, r son rayon et color sa couleur face à une lumière blanche
 Sphere::Sphere(PVect c, float r,PVect color)
 {
 	m_c=c;
@@ -23,16 +24,19 @@ Sphere::Sphere(PVect c, float r,PVect color)
 	m_color=color;
 }
 //------------------------------------------------------------------------
+//retourne la couleur de la sphere face à une lumière blanche
 PVect Sphere::getColor()
 {
 	return m_color;
 }
 //------------------------------------------------------------------------
+//retourne le centre de la sphere
 PVect Sphere::getCentre()
 {
 	return m_c;
 }
 //------------------------------------------------------------------------
+//lance un rayon vers la sphere objet et modifie le rayon s'il touche la sphère
 	void Sphere::intersect(Rayon &R)
 	{
 		PVect Cs = 	R.m_o - m_c;

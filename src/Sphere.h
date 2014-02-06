@@ -15,16 +15,29 @@
 class Sphere {
 
 private :
+	//centre de la sphère
 	PVect m_c;
+	//rayon de la sphère
 	float m_r;
+	//couleur de la sphère
 	PVect m_color;
 
 public :
+	//lance un rayon vers la sphere objet et modifie le rayon s'il touche la sphère
 	void intersect(Rayon &R);
+
+	//Constructeur d'une sphere avec c son centre, r son rayon et color sa couleur face à une lumière blanche
 	Sphere(PVect c, float r,PVect color);
+
+	//constructeur vide...
 	Sphere();
+
+	//retourne la couleur de la sphere face à une lumière blanche
 	PVect getColor();
+
+	//retourne le centre de la sphere
 	PVect getCentre();
+
 };
 
 

@@ -10,7 +10,7 @@
 #include "Image.h"
 #include "Sphere.h"
 
-
+//mise en place des spheres dans une scène.
 Scene::Scene()
 {
 //	for (int i = 0 ; i< 10 ; i++)
@@ -22,11 +22,14 @@ Scene::Scene()
 	m_objectsList.push_back(Sphere(PVect(1.5,9.0,0.0), 1.0, PVect(0.0,255.0,0.0)));
 }
 //--------------------------------------------------------------------------------
+//destructeur de la scène...
 Scene::~Scene()
 {
 
 }
 //--------------------------------------------------------------------------------
+//Lance un rayon r et retourne la sphere avec un intersect retournant le plus petit des m_t.
+//On ne modifie le rayon que si intersect retourne un m_hit=true et un plus petit m_t que le courant
 Sphere Scene::lanceRayon(Rayon& r)
 {
 	Rayon rInt=r;

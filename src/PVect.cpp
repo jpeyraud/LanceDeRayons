@@ -2,11 +2,13 @@
 
 using namespace std;
 
+//constructeur vide
 PVect::PVect(){
 
 }
 
 // ===================================================
+//constructeur d'une PVect
 PVect::PVect(float x, float y, float z){
 	this->x=x;
 	this->y=y;

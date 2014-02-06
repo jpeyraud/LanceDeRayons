@@ -7,11 +7,14 @@
 
 #include "Matrice.h"
 
+//construction d'une matrice par 3 PVect
 Matrice::Matrice(PVect a,PVect b,PVect c) {
-
-
+	m_m0=a;
+	m_m1=b;
+	m_m2=c;
 }
 
+//permet de multiplier deux matrices entres-elles
 Matrice operator*(Matrice const& a, Matrice const& b){
 	PVect c1,c2,c3;
 	c1.x=a.m_m0.x*b.m_m0.x;

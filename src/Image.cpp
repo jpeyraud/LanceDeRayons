@@ -6,7 +6,8 @@ using namespace std;
 
 
 //---------------------------------------------------------------------------
-Image::Image(const int rx, const int ry)
+//Formation d'une image avec un fond unie PVect color en paramètre
+Image::Image(const int rx, const int ry,PVect color)
 {
 	m_rezX=rx;
 	m_rezY=ry;
@@ -14,12 +15,13 @@ Image::Image(const int rx, const int ry)
 
 	for (int i=0; i<m_rezX*m_rezY; i++)
 	{
-		m_img[i].x = 0;
-		m_img[i].y = 0;
-		m_img[i].z = 0;
+			m_img[i].x = color.x;
+			m_img[i].y = color.y;
+			m_img[i].z = color.z;
 	}
 }
 //---------------------------------------------------------------------------
+//sauvegarde du fichier image
 void Image::save(string filename)
 {
 	fstream fileHandle;
@@ -36,6 +38,7 @@ void Image::save(string filename)
 	fileHandle.close();
 }
 //---------------------------------------------------------------------------
+//chargement d'une image pré-éxistante
 void Image::load(string filename)
 {
 	fstream fileHandle;
@@ -49,26 +52,31 @@ void Image::load(string filename)
 	fileHandle.close();
 }
 //---------------------------------------------------------------------------
+//attribut les couleur PVect de p au pixel en x,y
 void Image::setPixel(int x, int y, PVect p)
 {
 	m_img[m_rezY*y+x]=p;
 }
 //---------------------------------------------------------------------------
+//retourne un PVect des couleur du pixel en x,y de l'image courante
 PVect Image::getPixel(int x, int y)
 {
 	return m_img[m_rezY*y+x];
 }
 //---------------------------------------------------------------------------
+//retourne la taille en X de l'image(nombre de colonnes)
 int Image::getRezX()
 {
 	return m_rezX;
 }
 //---------------------------------------------------------------------------
+//retourne la taille en Z de l'image(nombre de lignes)
 int Image::getRezY()
 {
 	return m_rezY;
 }
 //---------------------------------------------------------------------------
+//applique le modele de lambert sur la sphere "sphere" au point de contact avec le rayon avec une source en i,j de l'image
 void Image::ModeleLambert(Source source,Sphere sphere,Rayon rayon,int i,int j)
 {
 	PVect Pix;
@@ -83,8 +91,6 @@ void Image::ModeleLambert(Source source,Sphere sphere,Rayon rayon,int i,int j)
 
 	//calcul du Vi
 	PVect Vi=Ps-I;
-	if(i<300&&i>160&&j==414)
-		Vi.print();
 	Vi.normalize();
 
 	//calcul du teta
@@ -104,6 +110,8 @@ void Image::ModeleLambert(Source source,Sphere sphere,Rayon rayon,int i,int j)
 	this->setPixel(i,j,Pix);
 }
 //---------------------------------------------------------------------------
+//applique le modele de phong sur la sphere "sphere" au point de contact avec le rayon avec une source en i,j de l'image
+//avec un coefficient n de spécularité et Ks la composante couleur de la spécularité
 void Image::ModelePhong(Source source,Sphere sphere,PVect Ks,float n,Rayon rayon,int i,int j)
 {
 	//calcul du teta
@@ -139,6 +147,7 @@ void Image::ModelePhong(Source source,Sphere sphere,PVect Ks,float n,Rayon rayon
 	this->setPixel(i,j,CalcModelePhong(source.getPuissance(),sphere.getColor(),Ks,n,alpha,teta));
 }
 //---------------------------------------------------------------------------
+//renvoie le calcul de phong avec la partie diffuse et la partie spéculaire
 PVect Image::CalcModelePhong(PVect puissance,PVect Kd,PVect Ks,float n,float alpha,float teta){
 
 		PVect partie_dif;
@@ -165,5 +174,20 @@ PVect Image::CalcModelePhong(PVect puissance,PVect Kd,PVect Ks,float n,float alp
 
 	    return P;
 }
+//---------------------------------------------------------------------------
+//Envoie le rayon Vm rayon miroir de "rayon" et attribut la couleur trouvée au point de contact I de la sphere
+void Image::imageMiroir(Source source,Rayon rayon,Sphere sphere,int i,int j){
+//calcul du teta
+	PVect Ps = source.getPosition();
+	//calcul point d'impact
+	PVect I=rayon.m_o+(rayon.m_t*rayon.m_v);
 
+	//calcul de la normale
+	PVect N=I-sphere.getCentre();
+	N.normalize();
+
+	//calcul du rayon miroir
+	PVect Vm=rayon.m_v-2.0*(N*rayon.m_v)*N;
+	this->setPixel(i,j,this->getPixel((int)Vm.x,(int)Vm.z));
+}
 #endif /* IMAGE_CPP_ */

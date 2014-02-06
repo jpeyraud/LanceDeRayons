@@ -12,13 +12,22 @@
 
 class Source {
 private :
-	PVect m_source;    //position de la source lumineuse
-	PVect m_puissance; //R,V,B
+	//position de la source lumineuse
+	PVect m_source;
+
+	//R,V,B (de 0.0 à 1.0)
+	PVect m_puissance;
 
 public:
+	//constructeur d'une source lumineuse ponctuelle
 	Source(PVect position,PVect puissance);
+
+	//retourne la puissance de la source en PVect
 	PVect getPuissance();
+
+	//retourne la position de la source
 	PVect getPosition();
+
 };
 
 #endif /* SOURCE_H_ */
