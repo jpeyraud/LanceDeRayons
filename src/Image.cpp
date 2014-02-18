@@ -6,7 +6,7 @@ using namespace std;
 
 
 //---------------------------------------------------------------------------
-//Formation d'une image avec un fond unie PVect color en paramètre
+//Formation d'une image avec un fond uni PVect color en paramètre
 Image::Image(const int rx, const int ry,PVect color)
 {
 	m_rezX=rx;

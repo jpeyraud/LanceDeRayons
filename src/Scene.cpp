@@ -13,13 +13,33 @@
 //mise en place des spheres dans une scène.
 Scene::Scene()
 {
-//	for (int i = 0 ; i< 10 ; i++)
-//	{
-//		m_objectsList.push_back(Sphere(PVect(i/2,5+i,0.0), 0.5, PVect(0.0,0.0,255.0)));
-//	}
+	//plus tard faire une fonction
+	for (int i = 0 ; i< 11 ; i++)
+	{
+		m_objectsList.push_back(Sphere(PVect(-1.0+(float(i)/5.0),6.0,1.0), 0.2, PVect(0.0,0.0,255.0)));
+		m_objectsList.push_back(Sphere(PVect(-1.0,6.0,1.0-(float(i)/5.0)), 0.2, PVect(0.0,0.0,255.0)));
 
-	m_objectsList.push_back(Sphere(PVect(0.5,6.0,0.0), 0.5, PVect(255.0,0.0,0.0)));
-	m_objectsList.push_back(Sphere(PVect(1.5,9.0,0.0), 1.0, PVect(0.0,255.0,0.0)));
+		m_objectsList.push_back(Sphere(PVect(1.0,6.0,-1.0+(float(i)/5.0)), 0.2, PVect(0.0,0.0,255.0)));
+		m_objectsList.push_back(Sphere(PVect(1.0-(float(i)/5.0),6.0,-1.0), 0.2, PVect(0.0,0.0,255.0)));
+
+		m_objectsList.push_back(Sphere(PVect(-1.0+(float(i)/5.0),6.0,1.0-(float(i)/5.0)), 0.2, PVect(0.0,0.0,255.0)));
+		m_objectsList.push_back(Sphere(PVect(-1.0+(float(i)/5.0),6.0,-1.0+(float(i)/5.0)), 0.2, PVect(0.0,0.0,255.0)));
+
+	}
+
+
+
+//	m_objectsList.push_back(Sphere(PVect(0.5,6.0,0.0), 0.5, PVect(0.0,0.0,255.0)));
+//	m_objectsList.push_back(Sphere(PVect(0.5,6.0,0.0), 0.5, PVect(0.0,0.0,255.0)));
+//	m_objectsList.push_back(Sphere(PVect(0.5,6.0,0.0), 0.5, PVect(0.0,0.0,255.0)));
+//	m_objectsList.push_back(Sphere(PVect(0.5,6.0,0.0), 0.5, PVect(0.0,0.0,255.0)));
+//	m_objectsList.push_back(Sphere(PVect(0.5,6.0,0.0), 0.5, PVect(0.0,0.0,255.0)));
+//	m_objectsList.push_back(Sphere(PVect(0.5,6.0,0.0), 0.5, PVect(0.0,0.0,255.0)));
+//	m_objectsList.push_back(Sphere(PVect(0.5,6.0,0.0), 0.5, PVect(0.0,0.0,255.0)));
+//	m_objectsList.push_back(Sphere(PVect(0.5,6.0,0.0), 0.5, PVect(0.0,0.0,255.0)));
+//	m_objectsList.push_back(Sphere(PVect(0.5,6.0,0.0), 0.5, PVect(0.0,0.0,255.0)));
+//	m_objectsList.push_back(Sphere(PVect(0.5,6.0,0.0), 0.5, PVect(0.0,0.0,255.0)));
+
 }
 //--------------------------------------------------------------------------------
 //destructeur de la scène...

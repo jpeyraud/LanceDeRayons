@@ -19,7 +19,7 @@ private:
 	vector<Sphere> m_objectsList;
 
 public:
-	//constructeur vide...s
+	//constructeur vide...
 	Scene();
 
 	//destructeur de la scène
