@@ -13,7 +13,6 @@
 #include "Rayon.h"
 #include <stdlib.h>
 #include "Scene.h"
-#include "Image.h"
 
 class Scene
 {
