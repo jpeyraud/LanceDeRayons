@@ -143,6 +143,38 @@ PVect Image::CalcModelePhong(PVect puissance,PVect Kd,PVect Ks,float n,float alp
 	    return P;
 }
 //---------------------------------------------------------------------------
+void Image::takePicture(float f, float dx, float dz, PVect p0, PVect origin, Scene myScene)
+{
+	vector<Source> source;
+	source.push_back(Source(PVect(10.0,0.0,10.0),PVect(1.0,1.0,1.0)));
+	source.push_back(Source(PVect(-10.0,0.0,-10.0),PVect(1.0,1.0,1.0)));
+	//Brdf brdf= Brdf(source);
+
+	PVect v,vR;
+	v.y = f;
+	for (int i=0; i<getRezY(); i++)
+	{
+		v.z = p0.z-i*dz;
+		for (int j=0; j<getRezX(); j++)
+		{
+			v.x = p0.x+j*dx;
+			vR= v;
+			vR.normalize();
+
+			Rayon r = Rayon(origin, vR);
+			Sphere s = myScene.lanceRayon(r);
+
+			if (r.m_hit)
+			{
+				//img->setPixel(i,j,s.getColor());
+				//brdf.ModeleLambert(img,s,r,i,j);
+				//img->ModelePhong(source,s,PVect(1.0,1.0,1.0),512,r,i,j);
+				//img->imageMiroir(source,r,s,i,j);
+			}
+	    }
+	}
+}
+//---------------------------------------------------------------------------
 //Envoie le rayon Vm rayon miroir de "rayon" et attribut la couleur trouvée au point de contact I de la sphere
 void Image::imageMiroir(Source source,Rayon rayon,Sphere sphere,int i,int j){
 //calcul du teta
