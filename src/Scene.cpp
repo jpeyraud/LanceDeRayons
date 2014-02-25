@@ -71,14 +71,13 @@ void Scene::imageCarre()
 {
 	for (int i = 0 ; i< 11 ; i++)
 	{
-		m_objectsList.push_back(Sphere(PVect(-1.0+(float(i)/5.0),6.0,1.0), 0.2, PVect(0.0,0.0,255.0)));
-		m_objectsList.push_back(Sphere(PVect(-1.0,6.0,1.0-(float(i)/5.0)), 0.2, PVect(0.0,0.0,255.0)));
+		m_objectsList.push_back(Sphere(PVect(-1.0+(float(i)/5.0),6.0,1.0), 0.2,new Lambert(PVect(0.0,0.0,255.0))));
+		m_objectsList.push_back(Sphere(PVect(-1.0,6.0,1.0-(float(i)/5.0)), 0.2,new Lambert(PVect(0.0,0.0,255.0))));
 
-		m_objectsList.push_back(Sphere(PVect(1.0,6.0,-1.0+(float(i)/5.0)), 0.2, PVect(0.0,0.0,255.0)));
-		m_objectsList.push_back(Sphere(PVect(1.0-(float(i)/5.0),6.0,-1.0), 0.2, PVect(0.0,0.0,255.0)));
+		m_objectsList.push_back(Sphere(PVect(1.0,6.0,-1.0+(float(i)/5.0)), 0.2,new Phong(PVect(0.0,0.0,255.0),PVect(1.0,1.0,1.0),512)));
+		m_objectsList.push_back(Sphere(PVect(1.0-(float(i)/5.0),6.0,-1.0), 0.2,new Phong(PVect(0.0,0.0,255.0),PVect(1.0,1.0,1.0),512)));
 
-		m_objectsList.push_back(Sphere(PVect(-1.0+(float(i)/5.0),6.0,1.0-(float(i)/5.0)), 0.2, PVect(0.0,0.0,255.0)));
-		m_objectsList.push_back(Sphere(PVect(-1.0+(float(i)/5.0),6.0,-1.0+(float(i)/5.0)), 0.2, PVect(0.0,0.0,255.0)));
-
+		m_objectsList.push_back(Sphere(PVect(-1.0+(float(i)/5.0),6.0,1.0-(float(i)/5.0)), 0.2,new Lambert(PVect(0.0,0.0,255.0))));
+		m_objectsList.push_back(Sphere(PVect(-1.0+(float(i)/5.0),6.0,-1.0+(float(i)/5.0)), 0.2,new Phong(PVect(0.0,0.0,255.0),PVect(1.0,1.0,1.0),512)));
 	}
 }

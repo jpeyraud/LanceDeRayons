@@ -85,7 +85,6 @@ void Image::takePicture(float f, float dx, float dz, PVect p0, PVect origin, Sce
 	vector<Source> source;
 	source.push_back(Source(PVect(10.0,0.0,10.0),PVect(1.0,1.0,1.0)));
 	source.push_back(Source(PVect(-10.0,0.0,-10.0),PVect(1.0,1.0,1.0)));
-	//Brdf brdf= Brdf(source);
 
 	PVect v,vR;
 	v.y = f;
@@ -103,8 +102,21 @@ void Image::takePicture(float f, float dx, float dz, PVect p0, PVect origin, Sce
 
 			if (r.m_hit)
 			{
+				//PVect Ps = source.getPosition();
+				//calcul point d'impact
+				PVect I=r.m_o+(r.m_t*r.m_v);
+
+				//calcul de la normale
+				PVect N=I-origin;
+				N.normalize();
+
+
+				//calcul du Vi
+				PVect vi=s.getCentre()-I;
+				vi.normalize();
+
 				//img->setPixel(i,j,s.getColor());
-				//brdf.ModeleLambert(img,s,r,i,j);
+				//PVect pix = s.getBrdf().Modele(origin,vi,N);
 				//img->ModelePhong(source,s,PVect(1.0,1.0,1.0),512,r,i,j);
 				//img->imageMiroir(source,r,s,i,j);
 			}

@@ -17,17 +17,11 @@ Sphere::Sphere()
 }
 //------------------------------------------------------------------------
 //Constructeur d'une sphere avec c son centre, r son rayon et color sa couleur face à une lumière blanche
-Sphere::Sphere(PVect c, float r,PVect color)
+Sphere::Sphere(PVect c, float r,Brdf *b)
 {
 	m_c=c;
 	m_r=r;
-	m_color=color;
-}
-//------------------------------------------------------------------------
-//retourne la couleur de la sphere face à une lumière blanche
-PVect Sphere::getColor()
-{
-	return m_color;
+	m_brdf=b;
 }
 //------------------------------------------------------------------------
 //retourne le centre de la sphere
@@ -70,4 +64,4 @@ PVect Sphere::getCentre()
 				}
 			}
 		}
-//------------------------------------------------------------------------
+

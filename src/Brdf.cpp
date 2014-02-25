@@ -14,18 +14,6 @@
 PVect Lambert::Modele(PVect vo,PVect Vi,PVect N)
 {
 	PVect Pix=PVect(0.0,0.0,0.0);
-		//PVect Ps = source.getPosition();
-		//calcul point d'impact
-		//PVect I=rayon.m_o+(rayon.m_t*rayon.m_v);
-
-		//calcul de la normale
-		//PVect N=I-vo;
-		//N.normalize();
-
-
-		//calcul du Vi
-		//PVect Vi=Ps-I;
-		//Vi.normalize();
 
 		//calcul du teta
 		float teta=N*Vi;

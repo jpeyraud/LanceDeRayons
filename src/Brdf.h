@@ -8,19 +8,16 @@
 #ifndef BRDF_H_
 #define BRDF_H_
 
-#include "Source.h"
-#include "Sphere.h"
-#include "Image.h"
-#include "Rayon.h"
+#include "PVect.h"
 #include "vector.h"
 
 class Brdf {
 protected:
 	PVect m_kd;
-	Brdf();
 public:
+	Brdf();
 	Brdf(PVect color):m_kd(color){};
-	virtual PVect Modele(PVect vo,PVect vi,PVect N);
+	virtual PVect Modele(PVect vo,PVect vi,PVect N) = 0;
 };
 
 

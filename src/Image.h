@@ -9,6 +9,7 @@
 #include "Sphere.h"
 #include "Rayon.h"
 #include "vector.h"
+#include "Brdf.h"
 
 class Image
 {
