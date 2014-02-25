@@ -21,6 +21,8 @@ private :
 	float m_r;
 	//couleur de la sphère
 	PVect m_color;
+	//Brdf demandée
+	//Brdf brdf;
 
 public :
 	//lance un rayon vers la sphere objet et modifie le rayon s'il touche la sphère

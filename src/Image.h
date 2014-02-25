@@ -20,7 +20,6 @@ public :
 	PVect getPixel(int x, int y);
 	int getRezX();
 	int getRezY();
-	void Image::ModeleLambert(Source source,Sphere sphere,Rayon rayon,int i,int j);
 	void Image::ModelePhong(Source source,Sphere sphere,PVect Ks,float n,Rayon rayon,int i,int j);
 	PVect Image::CalcModelePhong(PVect puissance,PVect Kd,PVect Ks,float n,float alpha,float teta);
 	void Image::imageMiroir(Source source,Rayon rayon,Sphere sphere,int i,int j);

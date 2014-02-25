@@ -3,6 +3,8 @@
 #include "Rayon.h"
 #include "Sphere.h"
 #include "Scene.h"
+#include "Brdf.h"
+
 #include <iostream>
 
 
@@ -23,9 +25,16 @@ int main()
 	PVect BLANC = PVect(255.0,255.0,255.0);
 
 	Scene myScene = Scene();
+<<<<<<< HEAD
+	vector<Source> source;
+	source.push_back(Source(PVect(10.0,0.0,10.0),PVect(1.0,1.0,1.0)));
+	source.push_back(Source(PVect(-10.0,0.0,-10.0),PVect(1.0,1.0,1.0)));
+	Brdf brdf= Brdf(source);
+=======
 	myScene.imageCarre();
 	Source source = Source(PVect(1.0,0.0,0.0),PVect(1.0,1.0,1.0));
 
+>>>>>>> branch 'master' of https://github.com/jpeyraud/LanceDeRayons.git
 	v.y = f;
 	for (int i=0; i<img->getRezY(); i++)
 	{
@@ -43,8 +52,8 @@ int main()
 			if (r.m_hit)
 			{
 				//img->setPixel(i,j,s.getColor());
-				//img->ModeleLambert(source,s,r,i,j);
-				img->ModelePhong(source,s,PVect(1.0,1.0,1.0),512,r,i,j);
+				brdf.ModeleLambert(img,s,r,i,j);
+				//img->ModelePhong(source,s,PVect(1.0,1.0,1.0),512,r,i,j);
 				//img->imageMiroir(source,r,s,i,j);
 			}
 	    }
