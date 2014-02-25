@@ -54,6 +54,7 @@ int main()
 			}
 	    }
 	}
+
 	img->save("sphereTest.ppm");
 
 	//system("Pause");
