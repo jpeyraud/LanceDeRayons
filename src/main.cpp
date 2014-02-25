@@ -23,6 +23,7 @@ int main()
 	PVect BLANC = PVect(255.0,255.0,255.0);
 
 	Scene myScene = Scene();
+	myScene.imageCarre();
 	Source source = Source(PVect(1.0,0.0,0.0),PVect(1.0,1.0,1.0));
 
 	v.y = f;
