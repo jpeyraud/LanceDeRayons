@@ -5,9 +5,7 @@
  *      Author: Altarrys
  */
 
-#include "Scene.h"
-#include "Rayon.h"
-#include "Image.h"
+
 #include "Sphere.h"
 
 //mise en place des spheres dans une scène.
@@ -42,19 +40,28 @@ Sphere Scene::lanceRayon(Rayon& r)
 	return Cs;
 }
 //--------------------------------------------------------------------------------
-Sphere Scene::lanceRayonAA(Rayon& r, int nbR)
+Sphere Scene::lanceRayonAARand(Rayon& r, int nbR, float dx, float dz)
 {
-	Rayon rInt=r;
 	Sphere Cs;
-	for (unsigned int i=0; i<m_objectsList.size(); i++)
+	for (int i=0 ; i < nbR ; i++)
 	{
-		m_objectsList[i].intersect(rInt);
-		if (rInt.m_hit && rInt.m_t < r.m_t)
+		Rayon rInt=r;
+		float dxRand = rand()%dx - dx/2;
+		float dzRand = rand()%dz - dz/2;
+
+		rInt.m_o.x = rInt.m_o.x + dxRand;
+		rInt.m_o.z = rInt.m_o.z + dzRand;
+		for (unsigned int i=0; i<m_objectsList.size(); i++)
 		{
-			r=rInt;
-			Cs=m_objectsList[i];
+			m_objectsList[i].intersect(rInt);
+			if (rInt.m_hit && rInt.m_t < r.m_t)
+			{
+				r=rInt;
+				Cs=m_objectsList[i];
+			}
 		}
 	}
+
 
 	return Cs;
 }

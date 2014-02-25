@@ -11,6 +11,9 @@
 #include "vector.h"
 #include "Sphere.h"
 #include "Rayon.h"
+#include <stdlib.h>
+#include "Scene.h"
+#include "Image.h"
 
 class Scene
 {
@@ -28,7 +31,7 @@ public:
 	//Lance un rayon r et retourne la sphere avec un intersect retournant le plus petit des m_t.
 	//On ne modifie le rayon que si intersect retourne un m_hit=true et un plus petit m_t que le courant
 	Sphere lanceRayon(Rayon& r);
-	Sphere lanceRayonAA(Rayon& r, int nbR);
+	Sphere lanceRayonAARand(Rayon& r, int nbR, float dx, float dz);
 
 	//Différentes images
 	void imageCarre();

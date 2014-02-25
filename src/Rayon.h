@@ -14,7 +14,7 @@ class Rayon
 {
 
 public:
-	//construction d'une rayon. m_t est placé en "infini", hit en false; o correspond à l'origine v au point d'impact
+
 	Rayon(PVect o, PVect v);
 
 	//destructeur de rayon...
