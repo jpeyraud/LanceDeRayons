@@ -16,10 +16,9 @@
 
 class Brdf {
 private:
-	vector<Source> m_source;
+	PVect m_kd;
 public:
-	Brdf(vector<Source> s);
-	void ModeleLambert(Image *img,Sphere sphere,Rayon rayon,int i,int j);
+	Brdf(PVect color);
 };
 
 #endif /* BRDF_H_ */
