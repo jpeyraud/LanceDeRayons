@@ -6,7 +6,8 @@
  */
 
 
-#include "Sphere.h"
+#include "Scene.h"
+
 
 //mise en place des spheres dans une scène.
 Scene::Scene()
@@ -46,8 +47,8 @@ Sphere Scene::lanceRayonAARand(Rayon& r, int nbR, float dx, float dz)
 	for (int i=0 ; i < nbR ; i++)
 	{
 		Rayon rInt=r;
-		float dxRand = rand()%dx - dx/2;
-		float dzRand = rand()%dz - dz/2;
+		float dxRand = ((float) (rand()%((int) dx*1000)))/1000.0 - dx/2.0;
+		float dzRand = ((float) (rand()%((int) dz*1000)))/1000.0 - dz/2.0;
 
 		rInt.m_o.x = rInt.m_o.x + dxRand;
 		rInt.m_o.z = rInt.m_o.z + dzRand;
