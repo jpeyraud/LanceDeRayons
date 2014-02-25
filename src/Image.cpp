@@ -76,39 +76,7 @@ int Image::getRezY()
 	return m_rezY;
 }
 //---------------------------------------------------------------------------
-//applique le modele de lambert sur la sphere "sphere" au point de contact avec le rayon avec une source en i,j de l'image
-void Image::ModeleLambert(Source source,Sphere sphere,Rayon rayon,int i,int j)
-{
-	PVect Pix;
-	PVect Ps = source.getPosition();
-	//calcul point d'impact
-	PVect I=rayon.m_o+(rayon.m_t*rayon.m_v);
 
-	//calcul de la normale
-	PVect N=I-sphere.getCentre();
-	N.normalize();
-
-
-	//calcul du Vi
-	PVect Vi=Ps-I;
-	Vi.normalize();
-
-	//calcul du teta
-	float teta=N*Vi;
-
-	if (teta<0.0){
-		teta=0.0;
-	}
-
-	//préparation du PVect couleur
-
-	Pix.x=(source.getPuissance().x*sphere.getColor().x)*teta;
-	Pix.y=(source.getPuissance().y*sphere.getColor().y)*teta;
-	Pix.z=(source.getPuissance().z*sphere.getColor().z)*teta;
-
-
-	this->setPixel(i,j,Pix);
-}
 //---------------------------------------------------------------------------
 //applique le modele de phong sur la sphere "sphere" au point de contact avec le rayon avec une source en i,j de l'image
 //avec un coefficient n de spécularité et Ks la composante couleur de la spécularité
