@@ -20,6 +20,7 @@ protected:
 	Brdf();
 public:
 	Brdf(PVect color):m_kd(color){};
+	virtual PVect Modele(PVect vo,PVect vi,PVect N);
 };
 
 
@@ -28,13 +29,17 @@ public:
 class Lambert : public Brdf {
 public:
 	Lambert(PVect kd):Brdf(kd){};
-	PVect ModeleLambert(Image *img,PVect vo,Source source,Rayon rayon);
+	PVect Modele(PVect vo,PVect vi,PVect N);
 };
 
 class Phong : public Brdf{
+private :
+	PVect m_ks;
+	float m_n;
 public :
-	PVect ModelePhong(Source source,Sphere sphere,PVect Ks,float n,Rayon rayon);
-	PVect CalcModelePhong(PVect puissance,PVect Kd,PVect Ks,float n,float alpha,float teta);
+	Phong(PVect kd,PVect ks,float n):Brdf(kd),m_ks(ks),m_n(n){};
+	PVect Modele(PVect vo,PVect vi,PVect N);
+	PVect CalcModelePhong(float alpha,float teta);
 };
 
 #endif /* BRDF_H_ */
