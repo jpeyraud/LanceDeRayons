@@ -42,6 +42,23 @@ Sphere Scene::lanceRayon(Rayon& r)
 	return Cs;
 }
 //--------------------------------------------------------------------------------
+Sphere Scene::lanceRayonAA(Rayon& r, int nbR)
+{
+	Rayon rInt=r;
+	Sphere Cs;
+	for (unsigned int i=0; i<m_objectsList.size(); i++)
+	{
+		m_objectsList[i].intersect(rInt);
+		if (rInt.m_hit && rInt.m_t < r.m_t)
+		{
+			r=rInt;
+			Cs=m_objectsList[i];
+		}
+	}
+
+	return Cs;
+}
+//--------------------------------------------------------------------------------
 void Scene::imageCarre()
 {
 	for (int i = 0 ; i< 11 ; i++)
