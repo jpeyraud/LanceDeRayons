@@ -16,9 +16,9 @@ Image::Image(const int rx, const int ry,PVect color)
 
 	for (int i=0; i<m_rezX*m_rezY; i++)
 	{
-			m_img[i].x = color.x;
-			m_img[i].y = color.y;
-			m_img[i].z = color.z;
+		m_img[i].x = color.x;
+		m_img[i].y = color.y;
+		m_img[i].z = color.z;
 	}
 }
 //---------------------------------------------------------------------------
@@ -109,7 +109,6 @@ void Image::takePicture(float f, float dx, float dz, PVect p0, PVect origin, Sce
 			}
 
 
-
 			if (r.m_hit)
 			{
 				//PVect Ps = source.getPosition();
@@ -147,13 +146,13 @@ void Image::takePicture(float f, float dx, float dz, PVect p0, PVect origin, Sce
 				}
 				setPixel(i,j,pixFinal);
 			}
-	    }
+		}
 	}
 }
 //---------------------------------------------------------------------------
 //Envoie le rayon Vm rayon miroir de "rayon" et attribut la couleur trouvée au point de contact I de la sphere
 void Image::imageMiroir(Source source,Rayon rayon,Sphere sphere,int i,int j){
-//calcul du teta
+	//calcul du teta
 	PVect Ps = source.getPosition();
 	//calcul point d'impact
 	PVect I=rayon.m_o+(rayon.m_t*rayon.m_v);
