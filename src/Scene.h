@@ -9,7 +9,7 @@
 #ifndef SCENE_H_
 #define SCENE_H_
 
-#include "vector.h"
+#include "vector"
 #include "Sphere.h"
 #include "Rayon.h"
 #include "stdlib.h"
@@ -33,7 +33,7 @@ public:
 	//Lance un rayon r et retourne la sphere avec un intersect retournant le plus petit des m_t.
 	//On ne modifie le rayon que si intersect retourne un m_hit=true et un plus petit m_t que le courant
 	Sphere lanceRayon(Rayon& r);
-	Sphere lanceRayonAARand(Rayon& r, int nbR, float dx, float dz);
+	Sphere lanceRayonAARand(vector<Rayon> r , float dx, float dz);
 
 	//Différentes images
 	void imageCarre();
