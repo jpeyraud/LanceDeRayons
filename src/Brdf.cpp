@@ -23,9 +23,9 @@ PVect Lambert::Modele(PVect vo,PVect Vi,PVect N)
 	}
 
 	//préparation du PVect couleur
-	Pix.x=m_kd.x*teta/M_PI;
-	Pix.y=m_kd.y*teta/M_PI;
-	Pix.z=m_kd.z*teta/M_PI;
+	Pix.x=m_kd.x*teta;
+	Pix.y=m_kd.y*teta;
+	Pix.z=m_kd.z*teta;
 
 	return Pix;
 }
