@@ -87,6 +87,7 @@ void Image::takePicture(float f, float dx, float dz, PVect p0, PVect origin, Sce
 	PVect pixFinal=PVect(0.0,0.0,0.0);
 	PVect pixInt=PVect (0.0,0.0,0.0);
 	PVect v,vR;
+	Rayon rInt=Rayon(origin, vR),rayon=Rayon(origin, vR);
 	v.y = f;
 	for (int i=0; i<getRezY(); i++)
 	{
@@ -96,55 +97,64 @@ void Image::takePicture(float f, float dx, float dz, PVect p0, PVect origin, Sce
 			v.x = p0.x+j*dx;
 			vR= v;
 			vR.normalize();
-
-			Rayon r = Rayon(origin, vR);
-			Sphere s;
-			if (AA_nbRayon == 0)
+			vector<Rayon> r;
+			for (int n=0 ; n < AA_nbRayon ; n++)
 			{
-				s = myScene.lanceRayon(r);
-			}
-			else
-			{
-				s = myScene.lanceRayonAARand(r, AA_nbRayon, dx, dz);
-			}
 
+				float dxRand = ( (float) rand() )/( (float) RAND_MAX) * dx - dx/2.0;
+				float dzRand = ( (float) rand() )/( (float) RAND_MAX) * dz - dz/2.0;
 
-			if (r.m_hit)
-			{
-				//PVect Ps = source.getPosition();
-				//calcul point d'impact
-				PVect I=r.m_o+(r.m_t*r.m_v);
-
-				//calcul de la normale
-				PVect N=I-s.getCentre();
-				N.normalize();
-
-
-
-				pixFinal=PVect(0.0,0.0,0.0);
-				for (unsigned int z = 0; z<source.size();z++)
+				rInt.m_o.x = r[0].m_o.x + dxRand;
+				rInt.m_o.z = r[0].m_o.z + dzRand;
+				r.push_back(rInt);
+				Sphere s;
+				if (AA_nbRayon == 0)
 				{
-					//calcul du Vi
-					PVect vi=source[z].getPosition()-I;
-					vi.normalize();
-					PVect pix = s.getBrdf(origin,vi,N);
-					pixInt.x=pix.x*(source[z].getPuissance().x);
-					pixInt.y=pix.y*(source[z].getPuissance().y);
-					pixInt.z=pix.z*(source[z].getPuissance().z);
-					pixFinal.x+=pixInt.x;
-					pixFinal.y+=pixInt.y;
-					pixFinal.z+=pixInt.z;
+					s = myScene.lanceRayon(r);
 				}
-				if (pixFinal.x>255.0){
-					pixFinal.x=255.0;
+				else
+				{
+					s = myScene.lanceRayonAARand(r, AA_nbRayon, dx, dz);
 				}
-				if(pixFinal.y>255.0){
-					pixFinal.y=255.0;
+
+
+				if (r[n].m_hit)
+				{
+					//PVect Ps = source.getPosition();
+					//calcul point d'impact
+					PVect I=r[n].m_o+(r[n].m_t*r[n].m_v);
+
+					//calcul de la normale
+					PVect N=I-s.getCentre();
+					N.normalize();
+
+
+
+					pixFinal=PVect(0.0,0.0,0.0);
+					for (unsigned int z = 0; z<source.size();z++)
+					{
+						//calcul du Vi
+						PVect vi=source[z].getPosition()-I;
+						vi.normalize();
+						PVect pix = s.getBrdf(origin,vi,N);
+						pixInt.x=pix.x*(source[z].getPuissance().x);
+						pixInt.y=pix.y*(source[z].getPuissance().y);
+						pixInt.z=pix.z*(source[z].getPuissance().z);
+						pixFinal.x+=pixInt.x;
+						pixFinal.y+=pixInt.y;
+						pixFinal.z+=pixInt.z;
+					}
+					if (pixFinal.x>255.0){
+						pixFinal.x=255.0;
+					}
+					if(pixFinal.y>255.0){
+						pixFinal.y=255.0;
+					}
+					if(pixFinal.z>255.0){
+						pixFinal.z=255.0;
+					}
+					setPixel(i,j,pixFinal);
 				}
-				if(pixFinal.z>255.0){
-					pixFinal.z=255.0;
-				}
-				setPixel(i,j,pixFinal);
 			}
 		}
 	}
