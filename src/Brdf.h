@@ -34,7 +34,7 @@ private :
 	PVect m_ks;
 	float m_n;
 public :
-	Phong(PVect kd,PVect ks,float n):Brdf(kd),m_ks(ks),m_n(n){};
+	Phong(PVect kd,float n):Brdf(kd),m_ks(PVect(1.0-kd.x,1.0-kd.y,1.0-kd.z)),m_n(n){};
 	PVect Modele(PVect vo,PVect vi,PVect N);
 	PVect CalcModelePhong(float alpha,float teta);
 };

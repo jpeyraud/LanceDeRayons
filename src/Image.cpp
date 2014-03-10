@@ -119,9 +119,9 @@ void Image::takePicture(float f, float dx, float dz, PVect p0, PVect origin, Sce
 					PVect vi=source[z].getPosition()-I;
 					vi.normalize();
 					PVect pix = s.getBrdf(origin,vi,N);
-					pixInt.x=pix.x*(source[z].getPuissance().x/M_PI);
-					pixInt.y=pix.y*(source[z].getPuissance().y/M_PI);
-					pixInt.z=pix.z*(source[z].getPuissance().z/M_PI);
+					pixInt.x=pix.x*(source[z].getPuissance().x);
+					pixInt.y=pix.y*(source[z].getPuissance().y);
+					pixInt.z=pix.z*(source[z].getPuissance().z);
 					pixFinal.x+=pixInt.x;
 					pixFinal.y+=pixInt.y;
 					pixFinal.z+=pixInt.z;
@@ -129,10 +129,10 @@ void Image::takePicture(float f, float dx, float dz, PVect p0, PVect origin, Sce
 				if (pixFinal.x>255.0){
 					pixFinal.x=255.0;
 				}
-				else if(pixFinal.y>255.0){
+				if(pixFinal.y>255.0){
 					pixFinal.y=255.0;
 				}
-				else if(pixFinal.z>255.0){
+				if(pixFinal.z>255.0){
 					pixFinal.z=255.0;
 				}
 				setPixel(i,j,pixFinal);

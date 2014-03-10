@@ -23,13 +23,12 @@ PVect Lambert::Modele(PVect vo,PVect Vi,PVect N)
 	}
 
 	//préparation du PVect couleur
-	Pix.x=m_kd.x*teta;
-	Pix.y=m_kd.y*teta;
-	Pix.z=m_kd.z*teta;
+	Pix.x=m_kd.x*teta/M_PI;
+	Pix.y=m_kd.y*teta/M_PI;
+	Pix.z=m_kd.z*teta/M_PI;
 
 	return Pix;
 }
-
 
 //applique le modele de phong sur la sphere "sphere" au point de contact avec le rayon avec une source en i,j de l'image
 //avec un coefficient n de spécularité et Ks la composante couleur de la spécularité
@@ -62,6 +61,7 @@ PVect Phong::CalcModelePhong(float alpha,float teta){
 	PVect partie_spec;
 	PVect P;
 
+
 	//calcul du cosalpha puissance n
 	float value = pow(alpha, m_n);
 
@@ -71,9 +71,9 @@ PVect Phong::CalcModelePhong(float alpha,float teta){
 	partie_dif.z = (1.0/M_PI)*m_kd.z;
 
 	//calcul de la partie speculaire de Phong
-	partie_spec.x = ((m_n+2.0)/(2.0*M_PI))*m_ks.x*value;
-	partie_spec.y = ((m_n+2.0)/(2.0*M_PI))*m_ks.y*value;
-	partie_spec.z = ((m_n+2.0)/(2.0*M_PI))*m_ks.z*value;
+	partie_spec.x = ((m_n+2.0)/(2.0*M_PI))*value*m_ks.x;
+	partie_spec.y = ((m_n+2.0)/(2.0*M_PI))*value*m_ks.y;
+	partie_spec.z = ((m_n+2.0)/(2.0*M_PI))*value*m_ks.z;
 
 	//Application du modele de Phong
 	P.x = (partie_dif.x + partie_spec.x)*teta;
