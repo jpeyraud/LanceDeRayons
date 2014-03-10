@@ -110,15 +110,6 @@ void Image::takePicture(float f, float dx, float dz, PVect p0, PVect origin, Sce
 				r.push_back(rInt);
 			}
 			Sphere s;
-				if (AA_nbRayon == 0)
-				{
-					s = myScene.lanceRayon(r[n]);
-				}
-				else
-				{
-					s = myScene.lanceRayonAARand(r, AA_nbRayon, dx, dz);
-				}
-
 			if (AA_nbRayon == 0)
 			{
 				s = myScene.lanceRayon(rayon);
