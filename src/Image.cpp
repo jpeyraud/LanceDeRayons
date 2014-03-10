@@ -81,7 +81,7 @@ int Image::getRezY()
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-void Image::takePicture(float f, float dx, float dz, PVect p0, PVect origin, Scene myScene)
+void Image::takePicture(float f, float dx, float dz, PVect p0, PVect origin, Scene myScene, int AA_nbRayon)
 {
 	vector<Source> source=myScene.getSource();
 	PVect pixFinal=PVect(0.0,0.0,0.0);
@@ -98,7 +98,17 @@ void Image::takePicture(float f, float dx, float dz, PVect p0, PVect origin, Sce
 			vR.normalize();
 
 			Rayon r = Rayon(origin, vR);
-			Sphere s = myScene.lanceRayon(r);
+			Sphere s;
+			if (AA_nbRayon == 0)
+			{
+				s = myScene.lanceRayon(r);
+			}
+			else
+			{
+				s = myScene.lanceRayonAARand(r, AA_nbRayon, dx, dz);
+			}
+
+
 
 			if (r.m_hit)
 			{

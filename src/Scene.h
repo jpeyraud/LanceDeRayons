@@ -37,6 +37,7 @@ public:
 
 	//Différentes images
 	void imageCarre();
+	void Scene::testAA();
 
 	//renvoi les sources de la scène
 	vector<Source> Scene::getSource();
