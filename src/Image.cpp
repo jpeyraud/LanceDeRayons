@@ -110,7 +110,7 @@ void Image::takePicture(float f, float dx, float dz, PVect p0, PVect origin, Sce
 				Sphere s;
 				if (AA_nbRayon == 0)
 				{
-					s = myScene.lanceRayon(r);
+					s = myScene.lanceRayon(r[n]);
 				}
 				else
 				{

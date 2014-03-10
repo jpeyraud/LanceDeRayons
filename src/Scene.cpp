@@ -42,7 +42,7 @@ Sphere Scene::lanceRayon(Rayon& r)
 	return Cs;
 }
 //--------------------------------------------------------------------------------
-Sphere Scene::lanceRayonAARand(vector<Rayon> r , float dx, float dz)
+Sphere Scene::lanceRayonAARand(vector<Rayon> &r , float dx, float dz)
 {
 	Sphere Cs;
 	for (unsigned int i=0 ; i < r.size() ; i++)
