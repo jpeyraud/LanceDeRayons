@@ -42,29 +42,18 @@ Sphere Scene::lanceRayon(Rayon& r)
 	return Cs;
 }
 //--------------------------------------------------------------------------------
-Sphere Scene::lanceRayonAARand(Rayon& r, int nbR, float dx, float dz)
+Sphere Scene::lanceRayonAARand(vector<Rayon> r , float dx, float dz)
 {
 	Sphere Cs;
-	Rayon rInt=r;
-	for (int i=0 ; i < nbR ; i++)
+	for (int i=0 ; i < r.size() ; i++)
 	{
-
-		float dxRand = ( (float) rand() )/( (float) RAND_MAX) * dx - dx/2.0;
-		float dzRand = ( (float) rand() )/( (float) RAND_MAX) * dz - dz/2.0;
-
-		//cout << dx << " " << dxRand << endl;
-		//cout << dz << " " << dzRand << endl;
-
-		//system("Pause");
-
-		rInt.m_o.x = r.m_o.x + dxRand;
-		rInt.m_o.z = r.m_o.z + dzRand;
+		Rayon rInt = r[i];
 		for (unsigned int i=0; i<m_objectsList.size(); i++)
 		{
 			m_objectsList[i].intersect(rInt);
-			if (rInt.m_hit && rInt.m_t < r.m_t)
+			if (rInt.m_hit && rInt.m_t < r[i].m_t)
 			{
-				r=rInt;
+				r[i]=rInt;
 				Cs=m_objectsList[i];
 			}
 		}
