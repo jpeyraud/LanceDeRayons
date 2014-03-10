@@ -8,7 +8,7 @@
 #include "Scene.h"
 #include "Sphere.h"
 #include "Rayon.h"
-#include "vector.h"
+#include <vector>
 #include "Brdf.h"
 
 class Image

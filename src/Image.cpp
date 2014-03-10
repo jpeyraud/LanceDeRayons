@@ -87,7 +87,8 @@ void Image::takePicture(float f, float dx, float dz, PVect p0, PVect origin, Sce
 	PVect pixFinal=PVect(0.0,0.0,0.0);
 	PVect pixInt=PVect (0.0,0.0,0.0);
 	PVect v,vR;
-	Rayon rInt=Rayon(origin, vR),rayon=Rayon(origin, vR);
+	Rayon rInt=Rayon(origin, vR);
+	Rayon rayon=Rayon(origin, vR);
 	v.y = f;
 	for (int i=0; i<getRezY(); i++)
 	{
@@ -104,20 +105,23 @@ void Image::takePicture(float f, float dx, float dz, PVect p0, PVect origin, Sce
 				float dxRand = ( (float) rand() )/( (float) RAND_MAX) * dx - dx/2.0;
 				float dzRand = ( (float) rand() )/( (float) RAND_MAX) * dz - dz/2.0;
 
-				rInt.m_o.x = r[0].m_o.x + dxRand;
-				rInt.m_o.z = r[0].m_o.z + dzRand;
+				rInt.m_o.x = rayon.m_o.x + dxRand;
+				rInt.m_o.z = rayon.m_o.z + dzRand;
 				r.push_back(rInt);
-				Sphere s;
-				if (AA_nbRayon == 0)
-				{
-					s = myScene.lanceRayon(r);
-				}
-				else
-				{
-					s = myScene.lanceRayonAARand(r, AA_nbRayon, dx, dz);
-				}
+			}
+			Sphere s;
 
+			if (AA_nbRayon == 0)
+			{
+				s = myScene.lanceRayon(rayon);
+			}
+			else
+			{
+				s = myScene.lanceRayonAARand(&r, AA_nbRayon, dx, dz);
+			}
 
+			for (int n=0 ; n < AA_nbRayon ; n++)
+			{
 				if (r[n].m_hit)
 				{
 					//PVect Ps = source.getPosition();
