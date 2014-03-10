@@ -22,18 +22,16 @@ int main()
 	PVect p0 = PVect(-sizeX/2.0+dx/2.0,f,sizeY/2.0-dz);
 	PVect origin = PVect(0.0,0.0,0.0);
 
-
 	PVect BLANC = PVect(255.0,255.0,255.0);
-
 
 	Scene myScene = Scene();
 	myScene.testAA();
 
-	img.takePicture(f, dx, dz, p0, origin, myScene, 0);
+	img.takePicture(f, dx, dz, p0, origin, myScene, 4);
 
 	img.save("sphereTest.ppm");
 
-	//system("Pause");
+	system("Pause");
 
 	return 0;
 }
