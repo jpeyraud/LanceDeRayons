@@ -61,24 +61,23 @@ PVect Phong::CalcModelePhong(float alpha,float teta){
 	PVect partie_spec;
 	PVect P;
 
-
 	//calcul du cosalpha puissance n
 	float value = pow(alpha, m_n);
 
 	//calcul de la partie diffuse de Phong
-	partie_dif.x = (1.0/M_PI)*m_kd.x;
-	partie_dif.y = (1.0/M_PI)*m_kd.y;
-	partie_dif.z = (1.0/M_PI)*m_kd.z;
+	partie_dif.x = (1.0/M_PI)*m_kd.x*teta;
+	partie_dif.y = (1.0/M_PI)*m_kd.y*teta;
+	partie_dif.z = (1.0/M_PI)*m_kd.z*teta;
 
 	//calcul de la partie speculaire de Phong
-	partie_spec.x = ((m_n+2.0)/(2.0*M_PI))*value*m_ks.x;
-	partie_spec.y = ((m_n+2.0)/(2.0*M_PI))*value*m_ks.y;
-	partie_spec.z = ((m_n+2.0)/(2.0*M_PI))*value*m_ks.z;
+	partie_spec.x = (((m_n+2.0)/(2.0*M_PI))*value)*m_ks.x;
+	partie_spec.y = (((m_n+2.0)/(2.0*M_PI))*value)*m_ks.y;
+	partie_spec.z = (((m_n+2.0)/(2.0*M_PI))*value)*m_ks.z;
 
 	//Application du modele de Phong
-	P.x = (partie_dif.x + partie_spec.x)*teta;
-	P.y = (partie_dif.y + partie_spec.y)*teta;
-	P.z = (partie_dif.z + partie_spec.z)*teta;
+	P.x = (partie_dif.x + partie_spec.x);
+	P.y = (partie_dif.y + partie_spec.y);
+	P.z = (partie_dif.z + partie_spec.z);
 
 	return P;
 }
