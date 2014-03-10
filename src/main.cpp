@@ -27,7 +27,7 @@ int main()
 
 
 	Scene myScene = Scene();
-	myScene.imageCarre();
+	myScene.testAA();
 
 	img.takePicture(f, dx, dz, p0, origin, myScene, 0);
 
