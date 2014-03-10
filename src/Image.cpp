@@ -4,6 +4,7 @@
 #include "Image.h"
 using namespace std;
 
+//image
 
 //---------------------------------------------------------------------------
 //Formation d'une image avec un fond uni PVect color en paramètre

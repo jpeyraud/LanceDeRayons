@@ -8,6 +8,7 @@
 
 #include "Scene.h"
 
+//scene
 
 //mise en place des spheres dans une scène.
 Scene::Scene()

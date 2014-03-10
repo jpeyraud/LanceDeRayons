@@ -10,6 +10,8 @@
 
 using namespace std;
 
+//sphere
+
 //constructeur vide...
 Sphere::Sphere()
 {

@@ -8,7 +8,7 @@
 #include "Brdf.h"
 
 
-
+//brdf
 
 //applique le modele de lambert sur la sphere "sphere" au point de contact avec le rayon avec une source en i,j de l'image
 PVect Lambert::Modele(PVect vo,PVect Vi,PVect N)
