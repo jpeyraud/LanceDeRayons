@@ -69,15 +69,23 @@ Sphere Scene::lanceRayonAARand(Rayon& r, int nbR, float dx, float dz)
 //--------------------------------------------------------------------------------
 void Scene::imageCarre()
 {
+	m_source.push_back(Source(PVect(-5.0,0.0,0.0),PVect(1.0,1.0,1.0)));
+	m_source.push_back(Source(PVect(0.0,2.0,5.0),PVect(1.0,1.0,1.0)));
 	for (int i = 0 ; i< 11 ; i++)
 	{
-		m_objectsList.push_back(Sphere(PVect(-1.0+(float(i)/5.0),6.0,1.0), 0.2,new Lambert(PVect(0.0,0.0,255.0))));
-		m_objectsList.push_back(Sphere(PVect(-1.0,6.0,1.0-(float(i)/5.0)), 0.2,new Lambert(PVect(0.0,0.0,255.0))));
+		m_objectsList.push_back(Sphere(PVect(-1.0+(float(i)/5.0),6.0,1.0), 0.2,new Lambert(PVect(255.0,0.0,255.0))));
+		m_objectsList.push_back(Sphere(PVect(-1.0,6.0,1.0-(float(i)/5.0)), 0.2,new Lambert(PVect(255.0,0.0,255.0))));
 
-		m_objectsList.push_back(Sphere(PVect(1.0,6.0,-1.0+(float(i)/5.0)), 0.2,new Phong(PVect(0.0,0.0,255.0),PVect(1.0,1.0,1.0),512)));
-		m_objectsList.push_back(Sphere(PVect(1.0-(float(i)/5.0),6.0,-1.0), 0.2,new Phong(PVect(0.0,0.0,255.0),PVect(1.0,1.0,1.0),512)));
+		m_objectsList.push_back(Sphere(PVect(1.0,6.0,-1.0+(float(i)/5.0)), 0.2,new Phong(PVect(255.0,255.0,0.0),PVect(1.0,1.0,1.0),128)));
+		m_objectsList.push_back(Sphere(PVect(1.0-(float(i)/5.0),6.0,-1.0), 0.2,new Phong(PVect(255.0,255.0,0.0),PVect(1.0,1.0,1.0),128)));
 
-		m_objectsList.push_back(Sphere(PVect(-1.0+(float(i)/5.0),6.0,1.0-(float(i)/5.0)), 0.2,new Lambert(PVect(0.0,0.0,255.0))));
-		m_objectsList.push_back(Sphere(PVect(-1.0+(float(i)/5.0),6.0,-1.0+(float(i)/5.0)), 0.2,new Phong(PVect(0.0,0.0,255.0),PVect(1.0,1.0,1.0),512)));
+		m_objectsList.push_back(Sphere(PVect(-1.0+(float(i)/5.0),6.0,1.0-(float(i)/5.0)), 0.2,new Lambert(PVect(0.0,255.0,255.0))));
+		m_objectsList.push_back(Sphere(PVect(-1.0+(float(i)/5.0),6.0,-1.0+(float(i)/5.0)), 0.2,new Phong(PVect(0.0,255.0,255.0),PVect(1.0,1.0,1.0),512)));
 	}
 }
+//--------------------------------------------------------------------------------
+vector<Source> Scene::getSource()
+{
+	return m_source;
+}
+

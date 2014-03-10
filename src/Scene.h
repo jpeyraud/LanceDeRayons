@@ -13,12 +13,14 @@
 #include "Rayon.h"
 #include <stdlib.h>
 #include "Scene.h"
+#include "Source.h"
 
 class Scene
 {
 private:
 	//vector de toutes les sphères dans la scène
 	vector<Sphere> m_objectsList;
+	vector<Source> m_source;
 
 public:
 	//constructeur vide...
@@ -34,6 +36,9 @@ public:
 
 	//Différentes images
 	void imageCarre();
+
+	//renvoi les sources de la scène
+	vector<Source> Scene::getSource();
 };
 
 #endif /* SCENE_H_ */

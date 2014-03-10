@@ -65,3 +65,9 @@ PVect Sphere::getCentre()
 			}
 		}
 
+	//------------------------------------------------------------------------
+	//Renvoi le PVect de la Brdf selon Lambert ou phong
+	PVect Sphere::getBrdf(PVect vo,PVect vi,PVect N)
+	{
+		return (m_brdf->Modele(vo,vi,N));
+	}

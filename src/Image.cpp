@@ -82,10 +82,9 @@ int Image::getRezY()
 //---------------------------------------------------------------------------
 void Image::takePicture(float f, float dx, float dz, PVect p0, PVect origin, Scene myScene)
 {
-	vector<Source> source;
-	source.push_back(Source(PVect(10.0,0.0,10.0),PVect(1.0,1.0,1.0)));
-	source.push_back(Source(PVect(-10.0,0.0,-10.0),PVect(1.0,1.0,1.0)));
-
+	vector<Source> source=myScene.getSource();
+	PVect pixFinal=PVect(0.0,0.0,0.0);
+	PVect pixInt=PVect (0.0,0.0,0.0);
 	PVect v,vR;
 	v.y = f;
 	for (int i=0; i<getRezY(); i++)
@@ -107,18 +106,26 @@ void Image::takePicture(float f, float dx, float dz, PVect p0, PVect origin, Sce
 				PVect I=r.m_o+(r.m_t*r.m_v);
 
 				//calcul de la normale
-				PVect N=I-origin;
+				PVect N=I-s.getCentre();
 				N.normalize();
 
 
-				//calcul du Vi
-				PVect vi=s.getCentre()-I;
-				vi.normalize();
 
-				//img->setPixel(i,j,s.getColor());
-				//PVect pix = s.getBrdf().Modele(origin,vi,N);
-				//img->ModelePhong(source,s,PVect(1.0,1.0,1.0),512,r,i,j);
-				//img->imageMiroir(source,r,s,i,j);
+				pixFinal=PVect(0.0,0.0,0.0);
+				for (unsigned int z = 0; z<source.size();z++)
+				{
+					//calcul du Vi
+					PVect vi=source[z].getPosition()-I;
+					vi.normalize();
+					PVect pix = s.getBrdf(origin,vi,N);
+					pixInt.x=pix.x*(source[z].getPuissance().x/M_PI);
+					pixInt.y=pix.y*(source[z].getPuissance().y/M_PI);
+					pixInt.z=pix.z*(source[z].getPuissance().z/M_PI);
+					pixFinal.x+=pixInt.x;
+					pixFinal.y+=pixInt.y;
+					pixFinal.z+=pixInt.z;
+				}
+				setPixel(i,j,pixFinal);
 			}
 	    }
 	}

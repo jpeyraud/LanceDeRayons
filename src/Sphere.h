@@ -22,12 +22,10 @@ private :
 	float m_r;
 	//couleur de la sphère
 	PVect m_color;
-
-
-public :
 	//Brdf demandée
 	Brdf *m_brdf;
 
+public :
 	//lance un rayon vers la sphere objet et modifie le rayon s'il touche la sphère
 	void intersect(Rayon &R);
 
@@ -43,6 +41,8 @@ public :
 	//retourne le centre de la sphere
 	PVect getCentre();
 
+	//get Brdf
+	PVect getBrdf(PVect vo,PVect vi,PVect N);
 
 };
 
