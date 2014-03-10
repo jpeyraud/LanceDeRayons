@@ -45,7 +45,7 @@ Sphere Scene::lanceRayon(Rayon& r)
 Sphere Scene::lanceRayonAARand(vector<Rayon> r , float dx, float dz)
 {
 	Sphere Cs;
-	for (int i=0 ; i < r.size() ; i++)
+	for (unsigned int i=0 ; i < r.size() ; i++)
 	{
 		Rayon rInt = r[i];
 		for (unsigned int i=0; i<m_objectsList.size(); i++)
