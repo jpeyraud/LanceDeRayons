@@ -136,6 +136,15 @@ void Image::takePicture(float f, float dx, float dz, PVect p0, PVect origin, Sce
 					pixFinal.y+=pixInt.y;
 					pixFinal.z+=pixInt.z;
 				}
+				if (pixFinal.x>255.0){
+					pixFinal.x=255.0;
+				}
+				else if(pixFinal.y>255.0){
+					pixFinal.y=255.0;
+				}
+				else if(pixFinal.z>255.0){
+					pixFinal.z=255.0;
+				}
 				setPixel(i,j,pixFinal);
 			}
 	    }
