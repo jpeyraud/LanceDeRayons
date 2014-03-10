@@ -85,6 +85,13 @@ void Scene::imageCarre()
 	}
 }
 //--------------------------------------------------------------------------------
+void Scene::testAA()
+{
+	m_source.push_back(Source(PVect(0.0,0.0,0.0),PVect(1.0,1.0,1.0)));
+	m_objectsList.push_back(Sphere(PVect(0.0,3.0,0.0), 0.5,new Lambert(PVect(0.0,0.0,255.0))));
+
+}
+//--------------------------------------------------------------------------------
 vector<Source> Scene::getSource()
 {
 	return m_source;

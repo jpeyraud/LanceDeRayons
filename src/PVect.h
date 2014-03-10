@@ -1,7 +1,7 @@
 #ifndef PVECT_H_
 #define PVECT_H_
 #include <iostream>
-#include <Math.h>
+#include "Math.h"
 class PVect {
 public:
 	//coordonnées

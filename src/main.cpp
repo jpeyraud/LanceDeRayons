@@ -27,11 +27,9 @@ int main()
 
 
 	Scene myScene = Scene();
-	myScene.imageCarre();
+	myScene.testAA();
 
-	myScene.imageCarre();
-
-	img.takePicture(f, dx, dz, p0, origin, myScene);
+	img.takePicture(f, dx, dz, p0, origin, myScene, 0);
 
 	img.save("sphereTest.ppm");
 
