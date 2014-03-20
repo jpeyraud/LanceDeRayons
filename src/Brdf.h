@@ -36,7 +36,19 @@ private :
 public :
 	Phong(PVect kd,PVect ks,float n):Brdf(kd),m_ks(ks),m_n(n){};
 	PVect Modele(PVect vo,PVect vi,PVect N);
-	PVect CalcModelePhong(float alpha,float teta);
+	PVect CalcModelePhong(float alpha,float teta,bool base);
 };
 
+class PhongMod : public Phong{
+public :
+	PhongMod(PVect kd,PVect ks,float n):Phong(kd,ks,n){};
+	PVect Modele(PVect vo,PVect vi,PVect N);
+};
+
+
+class PhongBase : public Phong{
+public :
+	PhongBase(PVect kd,PVect ks,float n):Phong(kd,ks,n){};
+	PVect Modele(PVect vo,PVect vi,PVect N);
+};
 #endif /* BRDF_H_ */

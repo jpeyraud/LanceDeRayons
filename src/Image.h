@@ -24,7 +24,7 @@ public :
 	int getRezX();
 	int getRezY();
 	void takePicture(float f, float dx, float dz, PVect p0, PVect origin, Scene myScene, int AA_nbRayon);
-	void imageMiroir(Source source,Rayon rayon,Sphere sphere,int i,int j);
+	void takePictureOmbre(float f, float dx, float dz, PVect p0, PVect origin, Scene myScene, int AA_nbRayon);
 
 //---------------------------------------------------------------------------
 private :

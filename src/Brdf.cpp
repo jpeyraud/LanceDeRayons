@@ -40,8 +40,8 @@ PVect Phong::Modele(PVect vo,PVect vi,PVect N)
 	if (teta<0.0){
 		teta=0.0;
 	}
-
 	PVect vd=vo-vi;
+
 	//calcul alpha
 	PVect H=vi-vd;
 	H.normalize();
@@ -51,11 +51,11 @@ PVect Phong::Modele(PVect vo,PVect vi,PVect N)
 		alpha=0.0;
 	}
 
-	return(CalcModelePhong(alpha,teta));
+	return(CalcModelePhong(alpha,teta,false));
 }
 //---------------------------------------------------------------------------
 //renvoie le calcul de phong avec la partie diffuse et la partie spéculaire
-PVect Phong::CalcModelePhong(float alpha,float teta){
+PVect Phong::CalcModelePhong(float alpha,float teta,bool base){
 
 	PVect partie_dif;
 	PVect partie_spec;
@@ -64,21 +64,74 @@ PVect Phong::CalcModelePhong(float alpha,float teta){
 	//calcul du cosalpha puissance n
 	float value = pow(alpha, m_n);
 
-	//calcul de la partie diffuse de Phong
-	partie_dif.x = (1.0/M_PI)*m_kd.x*teta;
-	partie_dif.y = (1.0/M_PI)*m_kd.y*teta;
-	partie_dif.z = (1.0/M_PI)*m_kd.z*teta;
+	if(!base){
+		//calcul de la partie diffuse de Phong
+		partie_dif.x = (1.0/M_PI)*m_kd.x*teta;
+		partie_dif.y = (1.0/M_PI)*m_kd.y*teta;
+		partie_dif.z = (1.0/M_PI)*m_kd.z*teta;
 
-	//calcul de la partie speculaire de Phong
-	partie_spec.x = (((m_n+2.0)/(2.0*M_PI))*value)*m_ks.x;
-	partie_spec.y = (((m_n+2.0)/(2.0*M_PI))*value)*m_ks.y;
-	partie_spec.z = (((m_n+2.0)/(2.0*M_PI))*value)*m_ks.z;
+		//calcul de la partie speculaire de Phong
+		partie_spec.x = (((m_n+2.0)/(2.0*M_PI))*value)*m_ks.x;
+		partie_spec.y = (((m_n+2.0)/(2.0*M_PI))*value)*m_ks.y;
+		partie_spec.z = (((m_n+2.0)/(2.0*M_PI))*value)*m_ks.z;
 
-	//Application du modele de Phong
-	P.x = (partie_dif.x + partie_spec.x);
-	P.y = (partie_dif.y + partie_spec.y);
-	P.z = (partie_dif.z + partie_spec.z);
+		//Application du modele de Phong
+		P.x = (partie_dif.x + partie_spec.x);
+		P.y = (partie_dif.y + partie_spec.y);
+		P.z = (partie_dif.z + partie_spec.z);
+	}
+	else{
+		//calcul de la partie diffuse de Phong
+		partie_dif.x = m_kd.x*teta;
+		partie_dif.y = m_kd.y*teta;
+		partie_dif.z = m_kd.z*teta;
+
+		//calcul de la partie speculaire de Phong
+		partie_spec.x = value*m_ks.x;
+		partie_spec.y = value*m_ks.y;
+		partie_spec.z = value*m_ks.z;
+
+		//Application du modele de Phong
+		P.x = (partie_dif.x + partie_spec.x);
+		P.y = (partie_dif.y + partie_spec.y);
+		P.z = (partie_dif.z + partie_spec.z);
+	}
 
 	return P;
 }
 
+PVect PhongMod::Modele(PVect vo,PVect vi,PVect N)
+{
+	PVect Vm=vo-2.0*(N*vo)*N;
+	Vm.normalize();
+	//calcul du teta
+	float teta=N*vi;
+	if (teta<0.0){
+		teta=0.0;
+	}
+	float alpha=Vm*vi;
+
+	if (alpha<0.0){
+		alpha=0.0;
+	}
+
+	return(CalcModelePhong(alpha,teta,false));
+
+}
+
+PVect PhongBase::Modele(PVect vo,PVect vi,PVect N){
+	PVect Vm=vo-2.0*(N*vo)*N;
+	Vm.normalize();
+	//calcul du teta
+	float teta=N*vi;
+	if (teta<0.0){
+		teta=0.0;
+	}
+	float alpha=Vm*vi;
+
+	if (alpha<0.0){
+		alpha=0.0;
+	}
+
+	return(CalcModelePhong(alpha,teta,true));
+}

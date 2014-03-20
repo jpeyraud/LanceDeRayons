@@ -87,8 +87,6 @@ void Image::takePicture(float f, float dx, float dz, PVect p0, PVect origin, Sce
 	PVect pixFinal=PVect(0.0,0.0,0.0);
 	PVect pixInt=PVect (0.0,0.0,0.0);
 	PVect v,vR;
-	Rayon rInt=Rayon(origin, vR);
-	Rayon rayon=Rayon(origin, vR);
 	v.y = f;
 	for (int i=0; i<getRezY(); i++)
 	{
@@ -98,42 +96,28 @@ void Image::takePicture(float f, float dx, float dz, PVect p0, PVect origin, Sce
 			v.x = p0.x+j*dx;
 			vR= v;
 			vR.normalize();
-			vector<Rayon> r;
+			Rayon rayon=Rayon(origin, vR);
+			pixFinal=PVect(0.0,0.0,0.0);
 			for (int n=0 ; n < AA_nbRayon ; n++)
 			{
-
-				float dxRand = ( (float) rand() )/( (float) RAND_MAX) * dx - dx/2.0;
-				float dzRand = ( (float) rand() )/( (float) RAND_MAX) * dz - dz/2.0;
-
-				rInt.m_o.x = rayon.m_o.x + dxRand;
-				rInt.m_o.z = rayon.m_o.z + dzRand;
-				r.push_back(rInt);
-			}
-			Sphere s;
-			if (AA_nbRayon == 0)
-			{
-				s = myScene.lanceRayon(rayon);
-			}
-			else
-			{
-				s = myScene.lanceRayonAARand(&r, AA_nbRayon, dx, dz);
-			}
-
-			for (int n=0 ; n < AA_nbRayon ; n++)
-			{
-				if (r[n].m_hit)
+				Rayon rInt=Rayon(origin, vR);
+				Sphere s;
+				if (AA_nbRayon > 1){
+					float dxRand = (( (float) rand() )/( (float) RAND_MAX) * dx - dx/2.0)/100000.0;
+					float dzRand = (( (float) rand() )/( (float) RAND_MAX) * dz - dz/2.0)/100000.0;
+					rInt.m_v.x = rayon.m_v.x + dxRand;
+					rInt.m_v.z = rayon.m_v.z + dzRand;
+				}
+				s = myScene.lanceRayon(rInt);
+				if (rInt.m_hit)
 				{
-					//PVect Ps = source.getPosition();
 					//calcul point d'impact
-					PVect I=r[n].m_o+(r[n].m_t*r[n].m_v);
+					PVect I=rInt.m_o+(rInt.m_t*rInt.m_v);
 
 					//calcul de la normale
 					PVect N=I-s.getCentre();
 					N.normalize();
 
-
-
-					pixFinal=PVect(0.0,0.0,0.0);
 					for (unsigned int z = 0; z<source.size();z++)
 					{
 						//calcul du Vi
@@ -147,35 +131,93 @@ void Image::takePicture(float f, float dx, float dz, PVect p0, PVect origin, Sce
 						pixFinal.y+=pixInt.y;
 						pixFinal.z+=pixInt.z;
 					}
-					if (pixFinal.x>255.0){
-						pixFinal.x=255.0;
-					}
-					if(pixFinal.y>255.0){
-						pixFinal.y=255.0;
-					}
-					if(pixFinal.z>255.0){
-						pixFinal.z=255.0;
-					}
-					setPixel(i,j,pixFinal);
 				}
 			}
+			pixFinal.x/=(float)AA_nbRayon;
+			pixFinal.y/=(float)AA_nbRayon;
+			pixFinal.z/=(float)AA_nbRayon;
+			if (pixFinal.x>255.0){
+				pixFinal.x=255.0;
+			}
+			if(pixFinal.y>255.0){
+				pixFinal.y=255.0;
+			}
+			if(pixFinal.z>255.0){
+				pixFinal.z=255.0;
+			}
+			setPixel(i,j,pixFinal);
 		}
 	}
 }
 //---------------------------------------------------------------------------
-//Envoie le rayon Vm rayon miroir de "rayon" et attribut la couleur trouvée au point de contact I de la sphere
-void Image::imageMiroir(Source source,Rayon rayon,Sphere sphere,int i,int j){
-	//calcul du teta
-	PVect Ps = source.getPosition();
-	//calcul point d'impact
-	PVect I=rayon.m_o+(rayon.m_t*rayon.m_v);
+void Image::takePictureOmbre(float f, float dx, float dz, PVect p0, PVect origin, Scene myScene, int AA_nbRayon)
+{
+	vector<Source> source=myScene.getSource();
+	PVect pixFinal=PVect(0.0,0.0,0.0);
+	PVect pixInt=PVect (0.0,0.0,0.0);
+	PVect v,vR;
+	v.y = f;
+	for (int i=0; i<getRezY(); i++)
+	{
+		v.z = p0.z-i*dz;
+		for (int j=0; j<getRezX(); j++)
+		{
+			v.x = p0.x+j*dx;
+			vR= v;
+			vR.normalize();
+			Rayon rayon=Rayon(origin, vR);
+			pixFinal=PVect(0.0,0.0,0.0);
+			for (int n=0 ; n < AA_nbRayon ; n++)
+			{
+				Rayon rInt=Rayon(origin, vR);
+				Sphere s;
+				if (AA_nbRayon > 1){
+					float dxRand = (( (float) rand() )/( (float) RAND_MAX) * dx - dx/2.0)/100000.0;
+					float dzRand = (( (float) rand() )/( (float) RAND_MAX) * dz - dz/2.0)/100000.0;
+					rInt.m_v.x = rayon.m_v.x + dxRand;
+					rInt.m_v.z = rayon.m_v.z + dzRand;
+				}
+				s = myScene.lanceRayon(rInt);
+				if (rInt.m_hit)
+				{
+					//calcul point d'impact
+					PVect I=rInt.m_o+(rInt.m_t*rInt.m_v);
 
-	//calcul de la normale
-	PVect N=I-sphere.getCentre();
-	N.normalize();
+					//calcul de la normale
+					PVect N=I-s.getCentre();
+					N.normalize();
 
-	//calcul du rayon miroir
-	PVect Vm=rayon.m_v-2.0*(N*rayon.m_v)*N;
-	this->setPixel(i,j,this->getPixel((int)Vm.x,(int)Vm.z));
+					for (unsigned int z = 0; z<source.size();z++)
+					{
+						//calcul du Vi
+						PVect vi=source[z].getPosition()-I;
+						vi.normalize();
+						PVect pix = s.getBrdf(origin,vi,N);
+						pixInt.x=pix.x*(source[z].getPuissance().x);
+						pixInt.y=pix.y*(source[z].getPuissance().y);
+						pixInt.z=pix.z*(source[z].getPuissance().z);
+						pixFinal.x+=pixInt.x;
+						pixFinal.y+=pixInt.y;
+						pixFinal.z+=pixInt.z;
+					}
+				}
+			}
+			pixFinal.x/=(float)AA_nbRayon;
+			pixFinal.y/=(float)AA_nbRayon;
+			pixFinal.z/=(float)AA_nbRayon;
+			if (pixFinal.x>255.0){
+				pixFinal.x=255.0;
+			}
+			if(pixFinal.y>255.0){
+				pixFinal.y=255.0;
+			}
+			if(pixFinal.z>255.0){
+				pixFinal.z=255.0;
+			}
+			setPixel(i,j,pixFinal);
+		}
+	}
 }
+//---------------------------------------------------------------------------
+
 #endif /* IMAGE_CPP_ */

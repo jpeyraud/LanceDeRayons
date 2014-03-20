@@ -12,7 +12,7 @@ using namespace std;
 
 int main()
 {
-	float sizeX=36.0,sizeY=24.0; // en mm
+	float sizeX=32.0,sizeY=24.0; // en mm
 	float f=50.0;
 	int resX=640, resY=480;
 
@@ -27,7 +27,7 @@ int main()
 	Scene myScene = Scene();
 	myScene.testAA();
 
-	img.takePicture(f, dx, dz, p0, origin, myScene, 4);
+	img.takePicture(f, dx, dz, p0, origin, myScene, 1);
 
 	img.save("sphereTest.ppm");
 

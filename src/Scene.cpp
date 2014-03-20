@@ -82,8 +82,12 @@ void Scene::imageCarre()
 //--------------------------------------------------------------------------------
 void Scene::testAA()
 {
-	m_source.push_back(Source(PVect(5.0,0.0,0.0),PVect(1.0,1.0,1.0)));
-	m_objectsList.push_back(Sphere(PVect(0.0,3.0,0.0), 0.5,new Phong(PVect(125.0,25.0,0.0),PVect(125.0,25.0,0.0),8)));
+	m_source.push_back(Source(PVect(2.0,0.0,0.0),PVect(0.0,1.0,0.0)));
+	m_source.push_back(Source(PVect(0.0,0.0,2.0),PVect(0.0,0.0,1.0)));
+	m_source.push_back(Source(PVect(-2.0,3.0,-2.0),PVect(1.0,0.0,0.0)));
+	m_objectsList.push_back(Sphere(PVect(0.0,3.0,0.0), 0.2,new Phong(PVect(125.0,125.0,125.0),PVect(125.0,125.0,125.0),8)));
+	m_objectsList.push_back(Sphere(PVect(0.5,3.0,0.5), 0.2,new Phong(PVect(125.0,125.0,125.0),PVect(125.0,155.0,125.0),8)));
+	m_objectsList.push_back(Sphere(PVect(0.5,2.5,-0.5), 0.2,new Phong(PVect(125.0,125.0,125.0),PVect(125.0,125.0,125.0),8)));
 
 }
 //--------------------------------------------------------------------------------
