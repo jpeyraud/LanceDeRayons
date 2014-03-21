@@ -16,7 +16,7 @@ class Rayon
 public:
 
 	Rayon(PVect o, PVect v);
-
+	Rayon();
 	//destructeur de rayon...
 	virtual ~Rayon();
 

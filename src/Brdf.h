@@ -10,6 +10,7 @@
 
 #include "PVect.h"
 #include "vector.h"
+#include "math.h"
 
 class Brdf {
 protected:

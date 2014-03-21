@@ -34,6 +34,7 @@ public:
 	//On ne modifie le rayon que si intersect retourne un m_hit=true et un plus petit m_t que le courant
 	Sphere lanceRayon(Rayon& r);
 	Sphere lanceRayonAARand(vector<Rayon> &r , float dx, float dz);
+	void lanceRayonOmbre(Rayon& r, Sphere sphere);
 
 	//Différentes images
 	void imageCarre();

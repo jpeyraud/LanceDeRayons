@@ -26,6 +26,12 @@ Sphere::Sphere(PVect c, float r,Brdf *b)
 	m_brdf=b;
 }
 //------------------------------------------------------------------------
+//retourne le rayon de la sphere
+float Sphere::getRayon()
+{
+	return m_r;
+}
+//------------------------------------------------------------------------
 //retourne le centre de la sphere
 PVect Sphere::getCentre()
 {
@@ -38,7 +44,7 @@ void Sphere::intersect(Rayon &R)
 	PVect Cs = 	R.m_o - m_c;
 	float A = 1.0;
 	float B = (Cs*R.m_v)*2.0;
-	float C = Cs.lengthpow()-m_r*m_r;
+	float C = Cs.squareLength()-m_r*m_r;
 	float delta=B*B-4*A*C;
 
 	if (delta<0.0)
@@ -72,4 +78,9 @@ void Sphere::intersect(Rayon &R)
 PVect Sphere::getBrdf(PVect vo,PVect vi,PVect N)
 {
 	return (m_brdf->Modele(vo,vi,N));
+}
+//------------------------------------------------------------------------
+//Redéfinition de l'opérateur !=
+bool Sphere::operator!=(Sphere const& a){
+	return !(this->m_c==a.m_c && a.m_r==this->m_r);
 }

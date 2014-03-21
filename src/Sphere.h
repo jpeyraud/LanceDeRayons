@@ -38,15 +38,17 @@ public :
 	//constructeur vide...
 	Sphere();
 
-	//retourne la couleur de la sphere face à une lumière blanche
-	PVect getColor();
-
 	//retourne le centre de la sphere
 	PVect getCentre();
+
+	//retourne le rayon de la sphere
+	float getRayon();
 
 	//get Brdf
 	PVect getBrdf(PVect vo,PVect vi,PVect N);
 
+	//renvoi le booléen pour savoir si la sphere demandée correspond à la sphere présentée
+	bool operator!=(Sphere const& a);
 };
 
 

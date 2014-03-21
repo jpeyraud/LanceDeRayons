@@ -170,6 +170,7 @@ void Image::takePictureOmbre(float f, float dx, float dz, PVect p0, PVect origin
 			for (int n=0 ; n < AA_nbRayon ; n++)
 			{
 				Rayon rInt=Rayon(origin, vR);
+
 				Sphere s;
 				if (AA_nbRayon > 1){
 					float dxRand = (( (float) rand() )/( (float) RAND_MAX) * dx - dx/2.0)/100000.0;
@@ -180,9 +181,9 @@ void Image::takePictureOmbre(float f, float dx, float dz, PVect p0, PVect origin
 				s = myScene.lanceRayon(rInt);
 				if (rInt.m_hit)
 				{
+
 					//calcul point d'impact
 					PVect I=rInt.m_o+(rInt.m_t*rInt.m_v);
-
 					//calcul de la normale
 					PVect N=I-s.getCentre();
 					N.normalize();
@@ -192,16 +193,25 @@ void Image::takePictureOmbre(float f, float dx, float dz, PVect p0, PVect origin
 						//calcul du Vi
 						PVect vi=source[z].getPosition()-I;
 						vi.normalize();
+						Rayon rOmbre=Rayon(I,vi);
+						rOmbre.m_t=rInt.m_t;
+						myScene.lanceRayonOmbre(rOmbre,s);
 						PVect pix = s.getBrdf(origin,vi,N);
 						pixInt.x=pix.x*(source[z].getPuissance().x);
 						pixInt.y=pix.y*(source[z].getPuissance().y);
 						pixInt.z=pix.z*(source[z].getPuissance().z);
+						if(rOmbre.m_hit){
+							pixInt.x/=5.0;
+							pixInt.y/=5.0;
+							pixInt.z/=5.0;
+						}
 						pixFinal.x+=pixInt.x;
 						pixFinal.y+=pixInt.y;
 						pixFinal.z+=pixInt.z;
 					}
 				}
 			}
+
 			pixFinal.x/=(float)AA_nbRayon;
 			pixFinal.y/=(float)AA_nbRayon;
 			pixFinal.z/=(float)AA_nbRayon;
