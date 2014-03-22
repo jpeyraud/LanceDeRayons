@@ -155,7 +155,7 @@ void Image::takePictureOmbre(float f, float dx, float dz, PVect p0, PVect origin
 	vector<Source> source=myScene.getSource();
 	PVect pixFinal=PVect(0.0,0.0,0.0);
 	PVect pixInt=PVect (0.0,0.0,0.0);
-	PVect v,vR;
+	PVect v,vR, pix;
 	v.y = f;
 	for (int i=0; i<getRezY(); i++)
 	{
@@ -193,10 +193,26 @@ void Image::takePictureOmbre(float f, float dx, float dz, PVect p0, PVect origin
 						//calcul du Vi
 						PVect vi=source[z].getPosition()-I;
 						vi.normalize();
-						Rayon rOmbre=Rayon(I,vi);
+						Rayon rOmbre=Rayon(I.duplicate(),vi.duplicate());
 						rOmbre.m_t=rInt.m_t;
 						myScene.lanceRayonOmbre(rOmbre,s);
-						PVect pix = s.getBrdf(origin,vi,N);
+						pix = s.getBrdf(I-origin,vi,N); // ou origin seulement...
+						if(s.isMiroir()){
+							Rayon rMiroir=Rayon(I.duplicate(),pix.duplicate());
+							Sphere sphereMiroir=myScene.lanceRayonOmbre(rMiroir,s);
+							if (rMiroir.m_hit){
+								cout<<"hit"<<endl;
+								//calcul point d'impact
+								PVect IMiroir=rMiroir.m_o+(rMiroir.m_t*rMiroir.m_v);
+								//calcul de la normale
+								PVect NMiroir=IMiroir-sphereMiroir.getCentre();
+								NMiroir.normalize();
+								PVect viMiroir=source[z].getPosition()-IMiroir;
+								viMiroir.normalize();
+								pix = sphereMiroir.getBrdf(IMiroir,viMiroir,NMiroir);
+								pix.print();
+							}
+						}
 						pixInt.x=pix.x*(source[z].getPuissance().x);
 						pixInt.y=pix.y*(source[z].getPuissance().y);
 						pixInt.z=pix.z*(source[z].getPuissance().z);

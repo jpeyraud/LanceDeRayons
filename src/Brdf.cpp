@@ -9,7 +9,9 @@
 
 
 //brdf
-
+bool Brdf::isMiroir(){
+	return m_miroir;
+}
 //applique le modele de lambert sur la sphere "sphere" au point de contact avec le rayon avec une source en i,j de l'image
 PVect Lambert::Modele(PVect vo,PVect Vi,PVect N)
 {
@@ -134,4 +136,13 @@ PVect PhongBase::Modele(PVect vo,PVect vi,PVect N){
 	}
 
 	return(CalcModelePhong(alpha,teta,true));
+}
+
+PVect Miroir::Modele(PVect vo,PVect vi,PVect N){
+	PVect Vm;
+	Vm.x=vo.x+(2.0*N.x*(-1.0*N.x*vo.x));
+	Vm.y=vo.y+(2.0*N.y*(-1.0*N.y*vo.y));
+	Vm.z=vo.z+(2.0*N.z*(-1.0*N.z*vo.z));
+	Vm.normalize();
+	return Vm;
 }

@@ -42,8 +42,9 @@ Sphere Scene::lanceRayon(Rayon& r)
 	return Cs;
 }
 //-----------------------------------------------------------------------------------------
-void Scene::lanceRayonOmbre(Rayon& r, Sphere sphere)
+Sphere Scene::lanceRayonOmbre(Rayon& r, Sphere sphere)
 {
+	Sphere Cs;
 	Rayon rInt=r;
 	for (unsigned int i=0; i<m_objectsList.size(); i++)
 	{
@@ -52,9 +53,11 @@ void Scene::lanceRayonOmbre(Rayon& r, Sphere sphere)
 			if (rInt.m_hit && rInt.m_t < r.m_t && rInt.m_t>0.0)
 			{
 				r=rInt;
+				Cs=m_objectsList[i];
 			}
 		}
 	}
+	return Cs;
 }
 //--------------------------------------------------------------------------------
 Sphere Scene::lanceRayonAARand(vector<Rayon> &r , float dx, float dz)
@@ -100,10 +103,14 @@ void Scene::testAA()
 	m_source.push_back(Source(PVect(-10.0,3.2,0.7),PVect(0.0,1.0,0.0)));
 	m_source.push_back(Source(PVect(0.0,2.0,0.0),PVect(0.0,0.0,1.0)));
 	m_source.push_back(Source(PVect(-2.0,3.0,-2.0),PVect(1.0,0.0,0.0)));
-	m_objectsList.push_back(Sphere(PVect(0.0,3.0,0.0), 0.2,new Phong(PVect(125.0,125.0,125.0),PVect(125.0,155.0,125.0),8)));
+	//m_objectsList.push_back(Sphere(PVect(0.2,3.0,0.1), 0.2,new Phong(PVect(125.0,125.0,125.0),PVect(125.0,155.0,125.0),8)));
 	m_objectsList.push_back(Sphere(PVect(0.0,3.0,0.5), 0.2,new Phong(PVect(125.0,125.0,125.0),PVect(125.0,155.0,125.0),8)));
 	m_objectsList.push_back(Sphere(PVect(0.5,3.0,0.5), 0.2,new Phong(PVect(125.0,125.0,125.0),PVect(125.0,125.0,125.0),8)));
-	//m_objectsList.push_back(Sphere(PVect(0.3,3.0,0.3), 0.1,new Phong(PVect(125.0,125.0,125.0),PVect(125.0,155.0,125.0),8)));
+	m_objectsList.push_back(Sphere(PVect(0.1,1.5,0.1), 0.1,new Phong(PVect(125.0,125.0,125.0),PVect(125.0,125.0,125.0),8)));
+	m_objectsList.push_back(Sphere(PVect(-0.1,1.5,-0.1), 0.1,new Phong(PVect(125.0,125.0,125.0),PVect(125.0,125.0,125.0),8)));
+	m_objectsList.push_back(Sphere(PVect(0.1,1.5,-0.1), 0.1,new Phong(PVect(125.0,125.0,125.0),PVect(125.0,125.0,125.0),8)));
+	m_objectsList.push_back(Sphere(PVect(-0.1,1.5,0.1), 0.1,new Phong(PVect(125.0,125.0,125.0),PVect(125.0,125.0,125.0),8)));
+	m_objectsList.push_back(Sphere(PVect(0.0,3.5,0.0), 0.1,new Miroir()));
 }
 //--------------------------------------------------------------------------------
 vector<Source> Scene::getSource()

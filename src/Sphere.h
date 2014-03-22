@@ -49,6 +49,9 @@ public :
 
 	//renvoi le booléen pour savoir si la sphere demandée correspond à la sphere présentée
 	bool operator!=(Sphere const& a);
+
+	//retourne vrai si la sphere est une sphere miroir, sinon false
+	bool isMiroir();
 };
 
 

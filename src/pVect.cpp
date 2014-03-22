@@ -7,6 +7,11 @@ using namespace std;
 
 PVect::PVect(float x, float y, float z):x(x),y(y),z(z) {}
 
+
+PVect PVect::duplicate(){
+	return (PVect (this->x,this->y,this->z));
+}
+//------------------------------------------------------
 //affectation
 //PVect PVect::operator=(PVect& P){
 //	x=P.x;

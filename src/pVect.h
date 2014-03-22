@@ -17,6 +17,8 @@ public:
 	PVect(){};
 	PVect(float x, float y, float z);
 
+	PVect duplicate();
+
 	/* **** SURCHARGE D OPERATEURS  **** */
 	bool operator==(PVect const& B);
 	

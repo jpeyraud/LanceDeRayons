@@ -15,10 +15,13 @@
 class Brdf {
 protected:
 	PVect m_kd;
+	bool m_miroir;
 public:
 	Brdf();
-	Brdf(PVect color):m_kd(color){};
+	Brdf(PVect color):m_kd(color),m_miroir(false){};
+	Brdf(bool miroir):m_miroir(miroir){};
 	virtual PVect Modele(PVect vo,PVect vi,PVect N) = 0;
+	bool isMiroir();
 };
 
 
@@ -50,6 +53,12 @@ public :
 class PhongBase : public Phong{
 public :
 	PhongBase(PVect kd,PVect ks,float n):Phong(kd,ks,n){};
+	PVect Modele(PVect vo,PVect vi,PVect N);
+};
+
+class Miroir : public Brdf{
+public:
+	Miroir():Brdf(true){};
 	PVect Modele(PVect vo,PVect vi,PVect N);
 };
 #endif /* BRDF_H_ */
