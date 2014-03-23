@@ -19,9 +19,9 @@ PVect Lambert::Modele(PVect vo,PVect Vi,PVect N)
 
 	//calcul du teta
 	float teta=N*Vi;
-
+	//cout<<teta<<endl;
 	if (teta<0.0){
-		teta=0.0;
+		teta=-teta;
 	}
 
 	//préparation du PVect couleur
@@ -40,7 +40,7 @@ PVect Phong::Modele(PVect vo,PVect vi,PVect N)
 	float teta=N*vi;
 
 	if (teta<0.0){
-		teta=0.0;
+		teta=-teta;
 	}
 	PVect vd=vo-vi;
 
@@ -50,7 +50,7 @@ PVect Phong::Modele(PVect vo,PVect vi,PVect N)
 	float alpha=H*N;
 
 	if (alpha<0.0){
-		alpha=0.0;
+		alpha=-alpha;
 	}
 
 	return(CalcModelePhong(alpha,teta,false));

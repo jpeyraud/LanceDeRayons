@@ -25,6 +25,7 @@ public :
 	int getRezY();
 	void takePicture(float f, float dx, float dz, PVect p0, PVect origin, Scene myScene, int AA_nbRayon);
 	void takePictureOmbre(float f, float dx, float dz, PVect p0, PVect origin, Scene myScene, int AA_nbRayon);
+	void setFond(PVect color);
 
 //---------------------------------------------------------------------------
 private :

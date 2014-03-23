@@ -15,13 +15,21 @@
 #include "stdlib.h"
 #include "Scene.h"
 #include "Source.h"
+#include "Plan.h"
+
+typedef struct{
+	int type;
+	Sphere s;
+	Plan p;
+}Object;
 
 class Scene
 {
 private:
 	//vector de toutes les sphères dans la scène
-	vector<Sphere> m_objectsList;
+	vector<Object> m_objectsList;
 	vector<Source> m_source;
+	Plan m_plan;
 
 public:
 	//constructeur vide...
@@ -32,8 +40,8 @@ public:
 
 	//Lance un rayon r et retourne la sphere avec un intersect retournant le plus petit des m_t.
 	//On ne modifie le rayon que si intersect retourne un m_hit=true et un plus petit m_t que le courant
-	Sphere lanceRayon(Rayon& r);
-	Sphere lanceRayonOmbre(Rayon& r, Sphere sphere);
+	Object lanceRayon(Rayon& r);
+	Object lanceRayonOmbre(Rayon& r, Object sphere);
 
 	//Différentes images
 	void imageCarre();
@@ -43,5 +51,7 @@ public:
 	//renvoi les sources de la scène
 	vector<Source> Scene::getSource();
 };
+
+
 
 #endif /* SCENE_H_ */

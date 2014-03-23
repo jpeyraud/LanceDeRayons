@@ -27,13 +27,12 @@ private :
 	PVect m_color;
 	//Brdf demandée
 	Brdf *m_brdf;
-
 public :
 	//lance un rayon vers la sphere objet et modifie le rayon s'il touche la sphère
 	void intersect(Rayon &R);
 
 	//Constructeur d'une sphere avec c son centre, r son rayon et color sa couleur face à une lumière blanche
-	Sphere(PVect c, float r,Brdf *b);
+	Sphere(PVect c, float r,Brdf *b):m_c(c),m_r(r),m_brdf(b){};
 
 	//constructeur vide...
 	Sphere();

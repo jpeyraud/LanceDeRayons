@@ -36,6 +36,7 @@ public:
 	
 	PVect operator/(float k);
 	void operator/=(float k);
+	PVect operator/=(PVect k);
 
 	//Produit x*x y*y z*z 
 	PVect dotProduct(PVect const& B);

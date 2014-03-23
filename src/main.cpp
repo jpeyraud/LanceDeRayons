@@ -17,7 +17,7 @@ int main()
 	int resX=640, resY=480;
 
 	Image img = Image(resX,resY,PVect(0.0,0.0,0.0));
-
+	img.setFond(PVect(100.0,100.0,100.0));
 	float dx=sizeX/resX, dz=sizeY/resY;
 	PVect p0 = PVect(-sizeX/2.0+dx/2.0,f,sizeY/2.0-dz);
 	PVect origin = PVect(0.0,0.0,0.0);
@@ -29,7 +29,7 @@ int main()
 	myScene.testAA();
 
 	//img.takePictureOmbre(f, dx, dz, p0, origin, myScene, 1);
-	img.takePicture(f, dx, dz, p0, origin, myScene,4);
+	img.takePictureOmbre(f, dx, dz, p0, origin, myScene,4);
 
 	img.save("sphereTest.ppm");
 

@@ -72,6 +72,11 @@ void PVect::operator/=(float k){
 	y/=k;
 	z/=k;
 }
+//-------------------------------------
+//division par un PVect
+PVect PVect::operator/=(PVect k){
+	return (PVect(x/=k.x,y/=k.y,z/=k.z));
+}
 //-----------------------------------------------------------
 //produit scalaire
 float PVect::operator*(PVect const& B){
