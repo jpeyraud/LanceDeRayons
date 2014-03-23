@@ -83,8 +83,8 @@ void Image::takePicture(float f, float dx, float dz, PVect p0, PVect origin, Sce
 	PVect pixFinal=PVect(0.0,0.0,0.0);
 	PVect pixInt=PVect (0.0,0.0,0.0);
 	PVect v,vR;
-	float dxAA = dx / 4.0;
-	float dzAA = dz / 4.0;
+	float dxAA = dx / 400.0;
+	float dzAA = dz / 400.0;
 	v.y = f;
 	for (int i=0; i<getRezY(); i++)
 	{
