@@ -25,10 +25,11 @@ int main()
 	PVect BLANC = PVect(255.0,255.0,255.0);
 
 	Scene myScene = Scene();
+	//myScene.test();
 	myScene.testAA();
 
 	//img.takePictureOmbre(f, dx, dz, p0, origin, myScene, 1);
-	img.takePicture(f, dx, dz, p0, origin, myScene, 4);
+	img.takePicture(f, dx, dz, p0, origin, myScene,4);
 
 	img.save("sphereTest.ppm");
 

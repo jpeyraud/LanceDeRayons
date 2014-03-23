@@ -107,24 +107,22 @@ void Image::takePicture(float f, float dx, float dz, PVect p0, PVect origin, Sce
 					//float dzRand = (( (float) rand() )/( (float) RAND_MAX) * dz - dz/2.0)/100000.0;
 
 					//Position fixe
-					if (n == 1){
+					if (n == 0){
 						rInt.m_v.x = rayon.m_v.x - dxAA;
 						rInt.m_v.z = rayon.m_v.z - dzAA;
 					}
-					else if (n == 2){
+					else if (n == 1){
 						rInt.m_v.x = rayon.m_v.x - dxAA;
 						rInt.m_v.z = rayon.m_v.z + dzAA;
+					}
+					else if (n == 2){
+						rInt.m_v.x = rayon.m_v.x + dxAA;
+						rInt.m_v.z = rayon.m_v.z - dzAA;
 					}
 					else if (n == 3){
 						rInt.m_v.x = rayon.m_v.x + dxAA;
-						rInt.m_v.z = rayon.m_v.z - dzAA;
-					}
-					else if (n == 4){
-						rInt.m_v.x = rayon.m_v.x + dxAA;
 						rInt.m_v.z = rayon.m_v.z + dzAA;
 					}
-
-
 				}
 				s = myScene.lanceRayon(rInt);
 				if (rInt.m_hit)
