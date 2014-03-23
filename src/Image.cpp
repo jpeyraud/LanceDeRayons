@@ -82,7 +82,11 @@ void Image::takePicture(float f, float dx, float dz, PVect p0, PVect origin, Sce
 	vector<Source> source=myScene.getSource();
 	PVect pixFinal=PVect(0.0,0.0,0.0);
 	PVect pixInt=PVect (0.0,0.0,0.0);
+<<<<<<< HEAD
 	PVect v,vR,vo;
+=======
+	PVect v,vR;
+>>>>>>> branch 'master' of https://github.com/jpeyraud/LanceDeRayons.git
 	float dxAA = dx / 400.0;
 	float dzAA = dz / 400.0;
 	v.y = f;
