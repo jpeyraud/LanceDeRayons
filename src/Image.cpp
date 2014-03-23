@@ -77,16 +77,14 @@ int Image::getRezY()
 	return m_rezY;
 }
 //---------------------------------------------------------------------------
-
-//---------------------------------------------------------------------------
-
-//---------------------------------------------------------------------------
 void Image::takePicture(float f, float dx, float dz, PVect p0, PVect origin, Scene myScene, int AA_nbRayon)
 {
 	vector<Source> source=myScene.getSource();
 	PVect pixFinal=PVect(0.0,0.0,0.0);
 	PVect pixInt=PVect (0.0,0.0,0.0);
 	PVect v,vR;
+	float dxAA = dx / 4.0;
+	float dzAA = dz / 4.0;
 	v.y = f;
 	for (int i=0; i<getRezY(); i++)
 	{
@@ -102,11 +100,31 @@ void Image::takePicture(float f, float dx, float dz, PVect p0, PVect origin, Sce
 			{
 				Rayon rInt=Rayon(origin, vR);
 				Sphere s;
-				if (AA_nbRayon > 1){
-					float dxRand = (( (float) rand() )/( (float) RAND_MAX) * dx - dx/2.0)/100000.0;
-					float dzRand = (( (float) rand() )/( (float) RAND_MAX) * dz - dz/2.0)/100000.0;
-					rInt.m_v.x = rayon.m_v.x + dxRand;
-					rInt.m_v.z = rayon.m_v.z + dzRand;
+				if (AA_nbRayon > 1)
+				{
+					//Position random pour le rayon
+					//float dxRand = (( (float) rand() )/( (float) RAND_MAX) * dx - dx/2.0)/100000.0;
+					//float dzRand = (( (float) rand() )/( (float) RAND_MAX) * dz - dz/2.0)/100000.0;
+
+					//Position fixe
+					if (n == 1){
+						rInt.m_v.x = rayon.m_v.x - dxAA;
+						rInt.m_v.z = rayon.m_v.z - dzAA;
+					}
+					else if (n == 2){
+						rInt.m_v.x = rayon.m_v.x - dxAA;
+						rInt.m_v.z = rayon.m_v.z + dzAA;
+					}
+					else if (n == 3){
+						rInt.m_v.x = rayon.m_v.x + dxAA;
+						rInt.m_v.z = rayon.m_v.z - dzAA;
+					}
+					else if (n == 4){
+						rInt.m_v.x = rayon.m_v.x + dxAA;
+						rInt.m_v.z = rayon.m_v.z + dzAA;
+					}
+
+
 				}
 				s = myScene.lanceRayon(rInt);
 				if (rInt.m_hit)

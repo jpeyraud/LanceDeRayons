@@ -33,12 +33,12 @@ public:
 	//Lance un rayon r et retourne la sphere avec un intersect retournant le plus petit des m_t.
 	//On ne modifie le rayon que si intersect retourne un m_hit=true et un plus petit m_t que le courant
 	Sphere lanceRayon(Rayon& r);
-	Sphere lanceRayonAARand(vector<Rayon> &r , float dx, float dz);
 	Sphere lanceRayonOmbre(Rayon& r, Sphere sphere);
 
 	//Différentes images
 	void imageCarre();
 	void Scene::testAA();
+	void Scene::test();
 
 	//renvoi les sources de la scène
 	vector<Source> Scene::getSource();

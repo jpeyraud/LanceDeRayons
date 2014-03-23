@@ -60,27 +60,6 @@ Sphere Scene::lanceRayonOmbre(Rayon& r, Sphere sphere)
 	return Cs;
 }
 //--------------------------------------------------------------------------------
-Sphere Scene::lanceRayonAARand(vector<Rayon> &r , float dx, float dz)
-{
-	Sphere Cs;
-	for (unsigned int i=0 ; i < r.size() ; i++)
-	{
-		Rayon rInt = r[i];
-		for (unsigned int i=0; i<m_objectsList.size(); i++)
-		{
-			m_objectsList[i].intersect(rInt);
-			if (rInt.m_hit && rInt.m_t < r[i].m_t)
-			{
-				r[i]=rInt;
-				Cs=m_objectsList[i];
-			}
-		}
-	}
-
-
-	return Cs;
-}
-//--------------------------------------------------------------------------------
 void Scene::imageCarre()
 {
 	m_source.push_back(Source(PVect(0.0,0.0,5.0),PVect(1.0,1.0,1.0)));
@@ -98,7 +77,7 @@ void Scene::imageCarre()
 	}
 }
 //--------------------------------------------------------------------------------
-void Scene::testAA()
+void Scene::test()
 {
 	m_source.push_back(Source(PVect(-10.0,3.2,0.7),PVect(0.0,1.0,0.0)));
 	m_source.push_back(Source(PVect(0.0,2.0,0.0),PVect(0.0,0.0,1.0)));
@@ -111,6 +90,12 @@ void Scene::testAA()
 	m_objectsList.push_back(Sphere(PVect(0.1,1.5,-0.1), 0.1,new Phong(PVect(125.0,125.0,125.0),PVect(125.0,125.0,125.0),8)));
 	m_objectsList.push_back(Sphere(PVect(-0.1,1.5,0.1), 0.1,new Phong(PVect(125.0,125.0,125.0),PVect(125.0,125.0,125.0),8)));
 	m_objectsList.push_back(Sphere(PVect(0.0,3.5,0.0), 0.1,new Miroir()));
+}
+//--------------------------------------------------------------------------------
+void Scene::testAA()
+{
+	m_source.push_back(Source(PVect(0.0,2.2,-1.0),PVect(0.0,0.0,1.0)));
+	m_objectsList.push_back(Sphere(PVect(0.0,3.0,0.5), 0.35,new Phong(PVect(125.0,125.0,125.0),PVect(125.0,155.0,125.0),8)));
 }
 //--------------------------------------------------------------------------------
 vector<Source> Scene::getSource()

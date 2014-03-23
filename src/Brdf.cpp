@@ -101,7 +101,7 @@ PVect Phong::CalcModelePhong(float alpha,float teta,bool base){
 
 	return P;
 }
-
+//---------------------------------------------------------------------------
 PVect PhongMod::Modele(PVect vo,PVect vi,PVect N)
 {
 	PVect Vm=vo-2.0*(N*vo)*N;
@@ -120,8 +120,9 @@ PVect PhongMod::Modele(PVect vo,PVect vi,PVect N)
 	return(CalcModelePhong(alpha,teta,false));
 
 }
-
-PVect PhongBase::Modele(PVect vo,PVect vi,PVect N){
+//---------------------------------------------------------------------------
+PVect PhongBase::Modele(PVect vo,PVect vi,PVect N)
+{
 	PVect Vm=vo-2.0*(N*vo)*N;
 	Vm.normalize();
 	//calcul du teta
@@ -137,7 +138,7 @@ PVect PhongBase::Modele(PVect vo,PVect vi,PVect N){
 
 	return(CalcModelePhong(alpha,teta,true));
 }
-
+//---------------------------------------------------------------------------
 PVect Miroir::Modele(PVect vo,PVect vi,PVect N){
 	PVect Vm;
 	Vm.x=vo.x+(2.0*N.x*(-1.0*N.x*vo.x));
