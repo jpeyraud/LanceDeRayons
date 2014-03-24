@@ -47,6 +47,7 @@ public:
 	void imageCarre();
 	void Scene::testAA();
 	void Scene::test();
+	void Scene::testJeremy();
 
 	//renvoi les sources de la scène
 	vector<Source> Scene::getSource();

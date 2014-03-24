@@ -26,10 +26,10 @@ int main()
 
 	Scene myScene = Scene();
 	//myScene.test();
-	myScene.testAA();
+	myScene.testJeremy();
 
 	//img.takePictureOmbre(f, dx, dz, p0, origin, myScene, 1);
-	img.takePictureOmbre(f, dx, dz, p0, origin, myScene,4);
+	img.takePicture(f, dx, dz, p0, origin, myScene,1);
 
 	img.save("sphereTest.ppm");
 
