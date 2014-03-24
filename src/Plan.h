@@ -24,6 +24,10 @@ public:
 	void intersect(Rayon &R);
 	PVect getNorm();
 	PVect getBrdf(PVect vo,PVect vi,PVect N);
+	//retourne true si c'est une sphere miroir, else = false
+	bool isMiroir();
+	bool Plan::operator!=(Plan const& a);
+
 };
 
 #endif /* Plan_H_ */

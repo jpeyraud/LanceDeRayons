@@ -78,7 +78,7 @@ bool Sphere::operator!=(Sphere const& a){
 	return !(this->m_c==a.m_c && a.m_r==this->m_r);
 }
 
-//constructeur vide...
+//retourne true si c'est une sphere miroir, else = false
 bool Sphere::isMiroir()
 {
 	return m_brdf->isMiroir();

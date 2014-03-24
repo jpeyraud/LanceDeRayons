@@ -250,7 +250,12 @@ void Image::takePictureOmbre(float f, float dx, float dz, PVect p0, PVect origin
 									NMiroir.normalize();
 									PVect viMiroir=source[z].getPosition()-IMiroir;
 									viMiroir.normalize();
-									pix = sphereMiroir.s.getBrdf(IMiroir,viMiroir,NMiroir);
+									if(sphereMiroir.type==0){
+										pix = sphereMiroir.s.getBrdf(IMiroir,viMiroir,NMiroir);
+									}
+									else {
+										pix = sphereMiroir.p.getBrdf(IMiroir,viMiroir,NMiroir);
+									}
 								}
 							}
 							pixInt.x=pix.x*(source[z].getPuissance().x);
@@ -280,6 +285,25 @@ void Image::takePictureOmbre(float f, float dx, float dz, PVect p0, PVect origin
 							rOmbre.m_t=rInt.m_t;
 							myScene.lanceRayonOmbre(rOmbre,s);
 							PVect pix = s.p.getBrdf(vo,vi,s.p.getNorm());
+							if(s.p.isMiroir()){
+								Rayon rMiroir=Rayon(I.duplicate(),pix.duplicate());
+								Object sphereMiroir=myScene.lanceRayonOmbre(rMiroir,s);
+								if (rMiroir.m_hit){
+									//calcul point d'impact
+									PVect IMiroir=rMiroir.m_o+(rMiroir.m_t*rMiroir.m_v);
+									//calcul de la normale
+									PVect NMiroir=IMiroir-sphereMiroir.s.getCentre();
+									NMiroir.normalize();
+									PVect viMiroir=source[z].getPosition()-IMiroir;
+									viMiroir.normalize();
+									if(sphereMiroir.type==0){
+										pix = sphereMiroir.s.getBrdf(IMiroir,viMiroir,NMiroir);
+									}
+									else {
+										pix = sphereMiroir.p.getBrdf(IMiroir,viMiroir,NMiroir);
+									}
+								}
+							}
 							pixInt.x=pix.x*(source[z].getPuissance().x);
 							pixInt.y=pix.y*(source[z].getPuissance().y);
 							pixInt.z=pix.z*(source[z].getPuissance().z);

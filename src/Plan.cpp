@@ -35,3 +35,16 @@ PVect Plan::getBrdf(PVect vo,PVect vi,PVect N)
 {
 	return (m_brdf->Modele(vo,vi,N));
 }
+
+//retourne true si c'est une sphere miroir, else = false
+bool Plan::isMiroir()
+{
+	return m_brdf->isMiroir();
+}
+
+//----------------------------------------------------
+//true si les plan sont les mêmes
+bool Plan::operator!=(Plan const& a){
+	return !(this->m_norm ==a.m_norm&& this->m_point==a.m_point);
+}
+
