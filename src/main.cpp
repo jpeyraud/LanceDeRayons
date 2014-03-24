@@ -29,7 +29,7 @@ int main()
 	myScene.testAA();
 
 	//img.takePictureOmbre(f, dx, dz, p0, origin, myScene, 1);
-	img.takePictureOmbre(f, dx, dz, p0, origin, myScene,4);
+	img.takePicture(f, dx, dz, p0, origin, myScene,4);
 
 	img.save("sphereTest.ppm");
 

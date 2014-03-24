@@ -52,6 +52,7 @@ Object Scene::lanceRayonOmbre(Rayon& r, Object sphere)
 	Rayon rInt=r;
 	for (unsigned int i=0; i<m_objectsList.size(); i++)
 	{
+		if(m_objectsList[i].type==0){
 		if(m_objectsList[i].s!=sphere.s){
 			if (m_objectsList[i].type==0){
 				m_objectsList[i].s.intersect(rInt);
@@ -65,6 +66,22 @@ Object Scene::lanceRayonOmbre(Rayon& r, Object sphere)
 				Cs=m_objectsList[i];
 			}
 		}
+	}
+	else {
+		if(m_objectsList[i].p!=sphere.p){
+					if (m_objectsList[i].type==0){
+						m_objectsList[i].s.intersect(rInt);
+					}
+					else {
+						m_objectsList[i].p.intersect(rInt);
+					}
+					if (rInt.m_hit && rInt.m_t < r.m_t && rInt.m_t>0.0)
+					{
+						r=rInt;
+						Cs=m_objectsList[i];
+					}
+				}
+			}
 	}
 	return Cs;
 }
@@ -113,12 +130,17 @@ void Scene::testAA()
 
 	Object s;
 	s.type=0;
-	s.s=Sphere(Sphere(PVect(0.0,3.0,0.5), 0.2,new Phong(PVect(125.0,125.0,125.0),PVect(125.0,155.0,125.0),8)));
+	//s.s=Sphere(Sphere(PVect(0.0,3.0,0.5), 0.2,new Phong(PVect(125.0,125.0,125.0),PVect(125.0,155.0,125.0),8)));
 	Object p;
 	p.type=1;
-	p.p=Plan(PVect(100.0,100.0,100.0),PVect(0.0,5.0,0.0),PVect(2.0,1.0,3.0),new Phong(PVect(70.0,70.0,70.0),PVect(70.0,70.0,70.0),2.0));
-	m_source.push_back(Source(PVect(-1.0,0.0,0.0),PVect(1.0,1.0,1.0)));
+	p.p=Plan(PVect(100.0,100.0,100.0),PVect(0.0,5.0,0.0),PVect(5.0,1.0,0.0),new Phong(PVect(70.0,70.0,70.0),PVect(70.0,70.0,70.0),1.0));
+	m_source.push_back(Source(PVect(-2.0,0.0,0.0),PVect(1.0,1.0,1.0)));
+	m_source.push_back(Source(PVect(0.0,0.0,-2.0),PVect(1.0,1.0,1.0)));
+	//m_objectsList.push_back(s);
+	s.s=Sphere(Sphere(PVect(0.0,2.0,0.0), 0.1,new Phong(PVect(125.0,125.0,125.0),PVect(125.0,155.0,125.0),8)));
 	m_objectsList.push_back(s);
+	m_objectsList.push_back(p);
+	p.p=Plan(PVect(100.0,100.0,100.0),PVect(0.0,5.0,0.0),PVect(0.0,1.0,5.0),new Phong(PVect(70.0,70.0,70.0),PVect(70.0,70.0,70.0),1.0));
 	m_objectsList.push_back(p);
 }
 //--------------------------------------------------------------------------------
