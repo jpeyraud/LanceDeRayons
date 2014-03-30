@@ -32,6 +32,26 @@ PVect Lambert::Modele(PVect vo,PVect Vi,PVect N)
 	return Pix;
 }
 
+
+PVect Lambert::ModelePlan(PVect vo,PVect Vi,PVect N)
+{
+	PVect Pix=PVect(0.0,0.0,0.0);
+
+	//calcul du teta
+	float teta=N*Vi;
+	//cout<<teta<<endl;
+	if (teta<0.0){
+		teta=-teta;
+	}
+
+	//préparation du PVect couleur
+	Pix.x=m_kd.x*teta;
+	Pix.y=m_kd.y*teta;
+	Pix.z=m_kd.z*teta;
+
+	return Pix;
+}
+
 //applique le modele de phong sur la sphere "sphere" au point de contact avec le rayon avec une source en i,j de l'image
 //avec un coefficient n de spécularité et Ks la composante couleur de la spécularité
 PVect Phong::Modele(PVect vo,PVect vi,PVect N)
@@ -41,6 +61,29 @@ PVect Phong::Modele(PVect vo,PVect vi,PVect N)
 
 	if (teta<0.0){
 		teta=0.0;
+	}
+	PVect vd=vo-vi;
+
+	//calcul alpha
+	PVect H=vi-vd;
+	H.normalize();
+	float alpha=H*N;
+
+	if (alpha<0.0){
+		alpha=0.0;
+	}
+
+	return(CalcModelePhong(alpha,teta,false));
+}
+
+//-------------------------------------------------------------------
+PVect Phong::ModelePlan(PVect vo,PVect vi,PVect N)
+{
+	//calcul du teta
+	float teta=N*vi;
+
+	if (teta<0.0){
+		teta=-teta;
 	}
 	PVect vd=vo-vi;
 
@@ -147,3 +190,29 @@ PVect Miroir::Modele(PVect vo,PVect vi,PVect N){
 	Vm.normalize();
 	return Vm;
 }
+
+//-----------------------------------------------------------------------------
+PVect Miroir::ModelePlan(PVect vo,PVect vi,PVect N){
+	PVect Vm;
+	Vm.x=vo.x+(2.0*N.x*(-1.0*N.x*vo.x));
+	Vm.y=vo.y+(2.0*N.y*(-1.0*N.y*vo.y));
+	Vm.z=vo.z+(2.0*N.z*(-1.0*N.z*vo.z));
+	Vm.normalize();
+	return Vm;
+}
+
+//---------------------------------------------------------------------------
+PVect Glass::Modele(PVect vo,PVect vi,PVect N){
+	float teta=N*vi;
+	float n =1.52;
+	float tetaGlass = asin(sin(teta)/n);
+	return vi;
+}
+
+PVect Glass::ModelePlan(PVect vo,PVect vi,PVect N){
+	float teta=N*vi;
+	float n =1.52;
+	float tetaGlass = asin(sin(teta)/n);
+	return vi;
+}
+

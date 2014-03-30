@@ -21,6 +21,7 @@ public:
 	Brdf(PVect color):m_kd(color),m_miroir(false){};
 	Brdf(bool miroir):m_miroir(miroir){};
 	virtual PVect Modele(PVect vo,PVect vi,PVect N) = 0;
+	virtual PVect ModelePlan(PVect vo,PVect vi,PVect N) = 0;
 	bool isMiroir();
 };
 
@@ -31,6 +32,7 @@ class Lambert : public Brdf {
 public:
 	Lambert(PVect kd):Brdf(kd){};
 	PVect Modele(PVect vo,PVect vi,PVect N);
+	PVect Lambert::ModelePlan(PVect vo,PVect Vi,PVect N);
 };
 
 class Phong : public Brdf{
@@ -40,6 +42,7 @@ private :
 public :
 	Phong(PVect kd,PVect ks,float n):Brdf(kd),m_ks(ks),m_n(n){};
 	PVect Modele(PVect vo,PVect vi,PVect N);
+	PVect ModelePlan(PVect vo,PVect vi,PVect N);
 	PVect CalcModelePhong(float alpha,float teta,bool base);
 };
 
@@ -60,5 +63,12 @@ class Miroir : public Brdf{
 public:
 	Miroir():Brdf(true){};
 	PVect Modele(PVect vo,PVect vi,PVect N);
+	PVect ModelePlan(PVect vo,PVect vi,PVect N);
+};
+
+class Glass : public Brdf{
+	Glass():Brdf(true){};
+	PVect Modele(PVect vo,PVect vi,PVect N);
+	PVect ModelePlan(PVect vo,PVect vi,PVect N);
 };
 #endif /* BRDF_H_ */

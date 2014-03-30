@@ -82,7 +82,7 @@ void Image::takePicture(float f, float dx, float dz, PVect p0, PVect origin, Sce
 	vector<Source> source=myScene.getSource();
 	PVect pixFinal=PVect(0.0,0.0,0.0);
 	PVect pixInt=PVect (0.0,0.0,0.0);
-	PVect v,vR,vo;
+	PVect v,vR;
 	float dxAA = dx / 400.0;
 	float dzAA = dz / 400.0;
 	v.y = f;
@@ -140,7 +140,9 @@ void Image::takePicture(float f, float dx, float dz, PVect p0, PVect origin, Sce
 							//calcul du Vi
 							PVect vi=source[z].getPosition()-I;
 							vi.normalize();
-							PVect pix = s.s.getBrdf(I-origin,vi,N);
+							//vo=I-origin;
+							//vo.normalize();
+							PVect pix = s.s.getBrdf(origin,vi,N);
 							pixInt.x=pix.x*(source[z].getPuissance().x);
 							pixInt.y=pix.y*(source[z].getPuissance().y);
 							pixInt.z=pix.z*(source[z].getPuissance().z);
@@ -152,15 +154,15 @@ void Image::takePicture(float f, float dx, float dz, PVect p0, PVect origin, Sce
 					else { // touche un plan
 						//calcul point d'impact
 						PVect I=rInt.m_o+(rInt.m_t*rInt.m_v);
-						vo = I-origin;
-						vo.normalize();
+						//vo = I-origin;
+						//vo.normalize();
 						for (unsigned int z = 0; z<source.size();z++)
 						{
 
 							//calcul du Vi
 							PVect vi=source[z].getPosition()-I;
 							vi.normalize();
-							PVect pix = s.p.getBrdf(vo,vi,s.p.getNorm());
+							PVect pix = s.p.getBrdf(origin,vi,s.p.getNorm());
 							pixInt.x=pix.x*(source[z].getPuissance().x);
 							pixInt.y=pix.y*(source[z].getPuissance().y);
 							pixInt.z=pix.z*(source[z].getPuissance().z);
@@ -193,7 +195,7 @@ void Image::takePictureOmbre(float f, float dx, float dz, PVect p0, PVect origin
 	vector<Source> source=myScene.getSource();
 	PVect pixFinal=PVect(0.0,0.0,0.0);
 	PVect pixInt=PVect (0.0,0.0,0.0);
-	PVect v,vR, pix,vo;
+	PVect v,vR, pix;
 	Rayon rInt(origin,vR);
 
 	v.y = f;
@@ -236,9 +238,9 @@ void Image::takePictureOmbre(float f, float dx, float dz, PVect p0, PVect origin
 							Rayon rOmbre=Rayon(I.duplicate(),vi.duplicate());
 							rOmbre.m_t=rInt.m_t;
 							myScene.lanceRayonOmbre(rOmbre,s);
-							vo=I-origin;
-							vo.normalize();
-							pix = s.s.getBrdf(vo,vi,N);
+							//vo=I-origin;
+							//vo.normalize();
+							pix = s.s.getBrdf(origin,vi,N);
 							if(s.s.isMiroir()){
 								Rayon rMiroir=Rayon(I.duplicate(),pix.duplicate());
 								Object sphereMiroir=myScene.lanceRayonOmbre(rMiroir,s);
@@ -273,8 +275,8 @@ void Image::takePictureOmbre(float f, float dx, float dz, PVect p0, PVect origin
 					}
 					else {
 						PVect I=rInt.m_o+(rInt.m_t*rInt.m_v);
-						vo = I-origin;
-						vo.normalize();
+						//vo = I-origin;
+						//vo.normalize();
 						for (unsigned int z = 0; z<source.size();z++)
 						{
 
@@ -284,7 +286,7 @@ void Image::takePictureOmbre(float f, float dx, float dz, PVect p0, PVect origin
 							Rayon rOmbre=Rayon(I.duplicate(),vi.duplicate());
 							rOmbre.m_t=rInt.m_t;
 							myScene.lanceRayonOmbre(rOmbre,s);
-							PVect pix = s.p.getBrdf(vo,vi,s.p.getNorm());
+							PVect pix = s.p.getBrdf(origin,vi,s.p.getNorm());
 							if(s.p.isMiroir()){
 								Rayon rMiroir=Rayon(I.duplicate(),pix.duplicate());
 								Object sphereMiroir=myScene.lanceRayonOmbre(rMiroir,s);
