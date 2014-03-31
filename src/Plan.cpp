@@ -33,7 +33,7 @@ PVect Plan::getNorm(){
 //Renvoi le PVect de la Brdf selon Lambert ou phong
 PVect Plan::getBrdf(PVect vo,PVect vi,PVect N)
 {
-	return (m_brdf->Modele(vo,vi,N));
+	return (m_brdf->ModelePlan(vo,vi,N));
 }
 
 //retourne true si c'est une sphere miroir, else = false

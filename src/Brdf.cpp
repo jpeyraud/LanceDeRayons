@@ -32,7 +32,7 @@ PVect Lambert::Modele(PVect vo,PVect Vi,PVect N)
 	return Pix;
 }
 
-//applique le modele de blin phong sur la sphere "sphere" au point de contact avec le rayon avec une source en i,j de l'image
+//applique le modele de phong sur la sphere "sphere" au point de contact avec le rayon avec une source en i,j de l'image
 //avec un coefficient n de spécularité et Ks la composante couleur de la spécularité
 PVect Phong::Modele(PVect vo,PVect vi,PVect N)
 {
