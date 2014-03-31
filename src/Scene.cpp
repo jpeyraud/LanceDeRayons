@@ -149,7 +149,16 @@ void Scene::testJeremy()
 	m_source.push_back(Source(PVect(0.0,5.0,-3.0),PVect(0.0,0.0,1.0)));
 	Object s;
 	s.type=0;
-	s.s = Sphere(PVect(0.0,5.0,0.0), 0.5,new Phong(PVect(125.0,125.0,125.0),PVect(125.0,155.0,125.0),8));
+	s.s = Sphere(PVect(0.0,5.0,0.0), 0.5,new Phong(PVect(125.0,125.0,125.0),PVect(125.0,125.0,125.0),8));
+	m_objectsList.push_back(s);
+}
+//--------------------------------------------------------------------------------
+void Scene::testMassMirror()
+{
+	m_source.push_back(Source(PVect(0.0,5.0,-3.0),PVect(0.0,0.0,1.0)));
+	Object s;
+	s.type=0;
+	s.s = Sphere(PVect(0.0,5.0,0.0), 0.5,new Phong(PVect(125.0,125.0,125.0),PVect(125.0,125.0,125.0),8));
 	m_objectsList.push_back(s);
 }
 //--------------------------------------------------------------------------------

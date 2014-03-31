@@ -26,14 +26,14 @@ int main()
 
 	Scene myScene = Scene();
 	//myScene.test();
-	myScene.testJeremy();
+	myScene.testMassMirror();
 
 	//img.takePictureOmbre(f, dx, dz, p0, origin, myScene, 1);
-	img.takePicture(f, dx, dz, p0, origin, myScene,4);
+	img.takePicture(f, dx, dz, p0, origin, myScene,1);
 
 	img.save("sphereTest.ppm");
 
-	system("Pause");
+	//system("Pause");
 
 	return 0;
 }
