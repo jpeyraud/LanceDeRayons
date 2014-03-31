@@ -15,14 +15,14 @@
 class Brdf {
 protected:
 	PVect m_kd;
-	bool m_miroir;
+	int m_miroir;
 public:
 	Brdf();
-	Brdf(PVect color):m_kd(color),m_miroir(false){};
-	Brdf(bool miroir):m_miroir(miroir){};
+	Brdf(PVect color):m_kd(color),m_miroir(0){};
+	Brdf(int miroir):m_miroir(miroir){};
 	virtual PVect Modele(PVect vo,PVect vi,PVect N) = 0;
 	virtual PVect ModelePlan(PVect vo,PVect vi,PVect N) = 0;
-	bool isMiroir();
+	int isMiroir();
 };
 
 
@@ -61,14 +61,15 @@ public :
 
 class Miroir : public Brdf{
 public:
-	Miroir():Brdf(true){};
+	Miroir():Brdf(1){};
 	PVect Modele(PVect vo,PVect vi,PVect N);
 	PVect ModelePlan(PVect vo,PVect vi,PVect N);
 };
 
 class Glass : public Brdf{
-	Glass():Brdf(true){};
-	PVect Modele(PVect vo,PVect vi,PVect N);
-	PVect ModelePlan(PVect vo,PVect vi,PVect N);
+public :
+	Glass():Brdf(2){};
+	PVect Modele(PVect vo,PVect vi,PVect N){};
+	PVect ModelePlan(PVect vo,PVect vi,PVect N){};
 };
 #endif /* BRDF_H_ */
